@@ -1,0 +1,22 @@
+table.TableLite {
+	font-family: verdana,arial,sans-serif;
+	
+/*	color:#333333;*/
+	border-width: 0px;
+	border-color: #222;
+	border-collapse: collapse;
+}
+table.TableLite th {
+	background-color: #575757;
+	border-width: 0px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #ccc;
+}
+table.TableLite tr {
+    border-bottom: 1px #222 solid;
+}
+table.TableLite td {
+	padding: 8px;
+    white-space: nowrap;
+}

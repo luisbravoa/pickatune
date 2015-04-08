@@ -1,0 +1,23 @@
+{
+  "name": "prototype",
+  "main": "index.html",
+  "window": {
+    "title": "Prototype",
+    "frame": true,
+    "resizable": true,
+    "width": 1024,
+    "height": 700,
+    "min_width": 1024,
+    "min_height": 700
+  },
+  "dependencies": {
+    "bookshelf": "^0.7.9",
+    "express": "^4.12.3",
+    "knex": "^0.7.6",
+    "musicmetadata": "^1.0.1",
+    "qr-image": "^3.1.0",
+    "sqlite3": "^3.0.5",
+    "underscore": "^1.8.3",
+    "when": "^3.7.2"
+  }
+}

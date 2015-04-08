@@ -1,0 +1,48 @@
+body{
+
+-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    height: 7px;
+    width: 7px;
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222;    
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
+
+/*
+.playButton {
+    color: white;
+    opacity: 0.7;
+}
+
+.addButton:hover {
+    opacity: 1;
+    color: white;
+}
+*/
+
+.song-controls > a{
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    opacity: 0.7;
+}
+.song-controls > a:hover{
+    color: white;
+    opacity: 1;
+}
