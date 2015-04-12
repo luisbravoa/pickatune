@@ -8,7 +8,8 @@
     "width": 1024,
     "height": 700,
     "min_width": 1024,
-    "min_height": 700
+    "min_height": 700,
+    "toolbar": false
   },
   "dependencies": {
     "bookshelf": "^0.7.9",
@@ -18,6 +19,7 @@
     "qr-image": "^3.1.0",
     "sqlite3": "^3.0.5",
     "underscore": "^1.8.3",
-    "when": "^3.7.2"
+    "when": "^3.7.2",
+    "nodewebkit": "0.10.5"
   }
 }

@@ -21,7 +21,16 @@ module.exports = {
             tx.executeSql('create table if not exists artists (' +
                 'id VARCHAR PRIMARY KEY UNIQUE,' +
                 'name VARCHAR,' +
-                'url VARCHAR' +
+                'url VARCHAR,' +
+                'img VARCHAR' +
+                ');'
+            );
+            tx.executeSql('create table if not exists albums (' +
+                'id VARCHAR PRIMARY KEY UNIQUE,' +
+                'name VARCHAR,' +
+                'artist VARCHAR,' +
+                'url VARCHAR,' +
+                'img VARCHAR' +
                 ');'
             );
         });
@@ -37,8 +46,26 @@ module.exports = {
     selectAllSongs: function () {
         return this.query('SELECT * FROM songs');
     },
+    selectAllSongsByArtistName: function (name) {
+        return this.query('SELECT * FROM songs where lower(artist) = lower("' + name + '")');
+    },
     selectAllArtists: function () {
         return this.query('SELECT * FROM artists');
+    },
+    listArtistsAndAlbums: function () {
+
+        return this.query('SELECT artist, album FROM songs group by artist, album')
+            .then(function (data) {
+                var response = [];
+                data.forEach(function (item) {
+                    if (item.artist !== '' && item.artist !== ' ') {
+                        response.push(item);
+                    }
+
+                });
+                return when.resolve(response);
+            });
+
     },
     listArtists: function () {
         return this.query('SELECT artist as foo FROM songs group by artist')
@@ -54,7 +81,7 @@ module.exports = {
             });
     },
     listAlbums: function () {
-        return this.query('SELECT album, artist FROM songs group by artist')
+        return this.query('SELECT * FROM albums')
             .then(function (data) {
                 var response = [];
                 data.forEach(function (item) {
@@ -81,19 +108,33 @@ module.exports = {
                 return when.resolve((data[0]['COUNT'] > 0))
             });
     },
-    
-    artistExistsByName: function (name) {
-        console.log(name)
-        return this.query('SELECT count(*) as COUNT FROM artists where name = "' + name + '"')
+
+    albumExistsByArtistsAndName: function (artist, name) {
+        //console.log('albumExistsByArtistsAndName', artist, name, 'SELECT count(*) as COUNT FROM albums where name = "' + name + '" and artist = "' + artist + '"')
+        return this.query('SELECT count(*) as COUNT FROM albums where name = "' + name + '" AND artist = "' + artist + '"')
             .then(function (data) {
                 return when.resolve((data[0]['COUNT'] > 0))
             });
     },
-    
-    
+
+    artistExistsByName: function (name) {
+        //console.log(name)
+        return this.query('SELECT count(*) as COUNT FROM artists where lower(name) = lower("' + name + '")')
+            .then(function (data) {
+                return when.resolve((data[0]['COUNT'] > 0))
+            });
+    },
+
+
     addArtist: function (data) {
         this.db.transaction(function (tx) {
-            tx.executeSql('INSERT INTO artists (id, name, url) VALUES (?,?,?)', [data.id, data.name, data.url]);
+            tx.executeSql('INSERT INTO artists (id, name, url, img) VALUES (?,?,?, ?)', [data.id, data.name, data.url, data.img]);
+        });
+    },
+    addAlbum: function (data) {
+        //console.log('addALbum', data);
+        this.db.transaction(function (tx) {
+            tx.executeSql('INSERT INTO albums (id, name, artist, url, img) VALUES (?,?,?,?,?)', [data.id, data.name, data.artist, data.url, data.img]);
         });
     },
 
@@ -124,8 +165,6 @@ module.exports = {
                     // error that is thrown when there is not affected columns 
                 }
 
-
-
             });
         });
 
@@ -136,6 +175,7 @@ module.exports = {
         this.db.transaction(function (tx) {
             tx.executeSql('DROP TABLE songs');
             tx.executeSql('DROP TABLE artists');
+            tx.executeSql('DROP TABLE albums');
         });
     }
 

@@ -20,6 +20,7 @@
     <link href="public/css/style.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="public/style/table.css">
     <link rel="stylesheet" type="text/css" href="public/style/common.css">
+    <link rel="stylesheet" type="text/css" href="public/style/ui.css">
 
     <!-- Custom Fonts -->
     <link href="public/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -32,11 +33,12 @@
     <![endif]-->
 
     <style>
-        #my-music {
+        #songs {
             font-size: 12px;
         }
         
         #page-wrapper {
+            font-size: 12px;
             overflow: auto;
             height: calc(100% - 30px);
         }
@@ -50,6 +52,7 @@
         .navbar-header{
             width: 210px;
         }
+
     </style>
 
 </head>
@@ -72,30 +75,30 @@
         </div>
         <!-- /#page-wrapper -->
         <div id="player-wrapper">
-            <audio id="player" controls autoplay></audio>
+            <audio id="player" controls></audio>
         </div>
     </div>
     <!-- /#wrapper -->
 <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="position: fixed; top:calc(50% - 50px); margin-left: auto; margin-right: auto; width: 300px;left: calc(50% - 150px); text-align:center;">
         <i class="fa fa-cog fa-spin fa-5x" style="top:50%; color: white;"></i>
-        <p style="color: white;">Loading all the goodness...</p>
+        <p style="color: white;" id="loader-message">Loading all the goodness...</p>
     </div>
     
 </div>
-    
-    <script>
-//        setTimeout(function(){
-//            
-//        }, 1000);
-    </script>
 
+    <script src="public/js/lib/handlebars-v3.0.1.js"></script>
     <script src="public/js/lib/jquery-2.1.3.js"></script>
     <script src="public/js/underscore.js"></script>
     <script src="public/js/backbone.js"></script>
     <script src="public/js/lib/TableLite/main.js"></script>
-
-
+    <script src="ui/uiUtils.js"></script>
+    <script src="ui/Queue.js"></script>
+    <script src="ui/Router.js"></script>
+    <script src="ui/routes/Party.js"></script>
+    <script src="ui/routes/ThumbnailList.js"></script>
+    <script src="ui/routes/SongList.js"></script>
+    <script src="ui/routes/SongQueue.js"></script>
 
 
     <script src="server.js"></script>

@@ -20,124 +20,6 @@ function getFilesRecursiveSync(dir, fileList, optionalFilterFunction) {
     }
 }
 
-
-
-//exports.getFilesRecursiveSync = getFilesRecursiveSync;
-//
-//function loadFile(file) {
-//    var deferred = when.defer();
-//    var mm = require('musicmetadata');
-//    var rs = fs.createReadStream(file);
-//
-//
-//
-//
-//    var id3 = require('id3js');
-//
-//    id3({
-//        file: file,
-//        type: id3.OPEN_LOCAL
-//    }, function (err, metadata) {
-//        // tags now contains your ID3 tags 
-//
-//        if (err) {
-//
-//            throw err;
-//            deferred.resolve({});
-//        }
-//
-//        metadata.file = file;
-//        deferred.resolve(metadata);
-//    });
-//
-//
-//    return deferred.promise;
-//
-//}
-
-
-exports.getFilesRecursiveSync = getFilesRecursiveSync;
-
-function loadFile(file) {
-    var deferred = when.defer();
-    var mm = require('musicmetadata');
-    var rs = fs.createReadStream(file);
-
-    var steam = fs.createReadStream(file);
-    var parser = mm(steam, function (err, metadata) {
-        if (err) deferred.resolve({});;
-
-        metadata.file = file;
-        steam.close();
-        deferred.resolve(metadata);
-        console.log(metadata);
-    });
-
-    /* 
-    
-    { artist : ['Spor'],
-  album : 'Nightlife, Vol 5.',
-  albumartist : [ 'Andy C', 'Spor' ],
-  title : 'Stronger',
-  year : '2010',
-  track : { no : 1, of : 44 },
-  disk : { no : 1, of : 2 },
-  genre : ['Drum & Bass'],
-  picture : [ { format : 'jpg', data : <Buffer> } ],
-  duration : 302 // in seconds
-}
-    
-    */
-
-    return deferred.promise;
-
-}
-
-function loadFile(file) {
-    var deferred = when.defer();
-    var mm = require('musicmetadata');
-    var rs = fs.createReadStream(file);
-
-    var stream = fs.createReadStream(file);
-    
-    function onClose(){
-        console.log('close');
-    }
-    stream.on('close', onClose);
-    var parser = mm(stream, function (err, metadata) {
-        if (err) deferred.resolve({});;
-        
-        stream.close();
-        stream.removeListener('close', onClose);
-
-        metadata.file = file;
-        
-        deferred.resolve(metadata);
-//        console.log(metadata);
-    });
-
-    /* 
-    
-    { artist : ['Spor'],
-  album : 'Nightlife, Vol 5.',
-  albumartist : [ 'Andy C', 'Spor' ],
-  title : 'Stronger',
-  year : '2010',
-  track : { no : 1, of : 44 },
-  disk : { no : 1, of : 2 },
-  genre : ['Drum & Bass'],
-  picture : [ { format : 'jpg', data : <Buffer> } ],
-  duration : 302 // in seconds
-}
-    
-    */
-
-    return deferred.promise;
-
-}
-
-
-
 exports.getFileNames = function loadFiles(folder) {
     var deferred = when.defer();
     var fs = require('fs');
@@ -152,7 +34,74 @@ exports.getFileNames = function loadFiles(folder) {
     deferred.resolve(list);
 
     return deferred.promise;
+};
+
+
+exports.getFilesRecursiveSync = getFilesRecursiveSync;
+
+
+function loadFileInfo(file) {
+    var deferred = when.defer();
+    var mm = require('musicmetadata');
+    var rs = fs.createReadStream(file);
+
+    var stream = fs.createReadStream(file);
+    
+    function onClose(){
+        console.log('close');
+    }
+    stream.on('close', onClose);
+    //console.log('loading ', file);
+    var parser = mm(stream, function (err, metadata) {
+        if (err) {
+            //console.log(err);
+            deferred.resolve({});
+        }
+        //console.log('loaded ', file, metadata);
+        stream.close();
+        stream.removeListener('close', onClose);
+
+        metadata.file = file;
+
+        var response  = {
+            id: generateHash(),
+            artist: (metadata.artist) ? metadata.artist.join(', ') : '',
+            album: metadata.album,
+            genre: (metadata.genre) ? metadata.genre.join(', ') : '',
+            track: (metadata.track) ? metadata.track.no: '',
+            trackTotal: (metadata.track) ? metadata.track.of: '',
+            year: metadata.year,
+            title: metadata.title,
+            file: file
+        };
+        
+        deferred.resolve(response);
+    });
+
+    /* 
+    
+    { artist : ['Spor'],
+  album : 'Nightlife, Vol 5.',
+  albumartist : [ 'Andy C', 'Spor' ],
+  title : 'Stronger',
+  year : '2010',
+  track : { no : 1, of : 44 },
+  disk : { no : 1, of : 2 },
+  genre : ['Drum & Bass'],
+  picture : [ { format : 'jpg', data : <Buffer> } ],
+  duration : 302 // in seconds
 }
+    
+    */
+
+    return deferred.promise;
+
+}
+
+
+exports.loadFileInfo = loadFileInfo;
+
+
 
 
 exports.loadFilesInfo = function (list, folder) {
@@ -165,24 +114,11 @@ exports.loadFilesInfo = function (list, folder) {
         if (index > 200) {
             return;
         }
-        promises.push(loadFile(file));
+        promises.push(loadFileInfo(file));
     });
 
     when.all(promises)
         .then(function (songs) {
-            songs = songs.map(function (song) {
-                return {
-                    id: generateHash(),
-                    artist: (song.artist) ? song.artist.join(', ') : '',
-                    album: song.album,
-                    genre: (song.genre) ? song.genre.join(', ') : '',
-                    track: (song.track) ? song.track.no: '',
-                    trackTotal: (song.track) ? song.track.of: '',
-                    year: song.year,
-                    title: song.title,
-                    file: (folder) ? song.file.replace(folder + '/', '') : song.file
-                };
-            })
             deferred.resolve(songs);
         }, console.error);
 

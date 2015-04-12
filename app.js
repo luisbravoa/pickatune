@@ -2,30 +2,62 @@ var player = document.querySelector('#player');
 var test = document.querySelector('#test');
 var qrcode = document.querySelector('#qr');
 
-var contentWrapper = $('#content-wrapper');
+var $contentWrapper = $('#content-wrapper');
+var contentWrapper = document.querySelector('#content-wrapper');
 
-$('.navbar').append(utils.loadFile('./html/nav.html'));
+var songQueue = new Queue();
+var currentSong;
+
+$('.navbar').append(global.utils.loadFile('./html/nav.html'));
 
 
-function showContent(name) {
-    var $element = $('#' + name);
+//function showContent(name) {
+//    var $element = $('#' + name);
+//
+//    if ($element.length === 0) {
+//        console.log('adding ' + name);
+//        contentWrapper.append(global.utils.loadFile('./html/' + name + '.html'));
+//    } else {
+//        $element.fadeIn();
+//
+//        console.log('showing ' + name);
+//    }
+//    contentWrapper.children(':not(#' + name + ')').each(function () {
+//        $(this).hide();
+//    });
+//
+//}
 
-    if ($element.length === 0) {
-        console.log('adding ' + name);
-        contentWrapper.append(utils.loadFile('./html/' + name + '.html'));
-    } else {
-        $element.fadeIn();
+//function showContent(element) {
+//    var $element = $(element);
+//
+//    //if ($element.length === 0) {
+//    //    console.log('adding ' + name);
+//    //    contentWrapper.append(global.utils.loadFile('./html/' + name + '.html'));
+//    //} else {
+//        $element.fadeIn();
+//
+//        console.log('showing ' + name);
+//    //}
+//    $contentWrapper.children().each(function () {
+//        if($(this) !== $element){
+//            $(this).hide();
+//        }
+//
+//    });
+//
+//}
+function showContent(element) {
 
-        console.log('showing ' + name);
+
+    if(element.parentNode !== contentWrapper){
+        $contentWrapper.append(element);
     }
-    contentWrapper.children(':not(#' + name + ')').each(function () {
-        $(this).hide();
-    });
-
+    $contentWrapper.children().hide();
+    $(element).show();
 }
 
 function loader(show) {
-
     if (show) {
         $('#loader').modal({
             backdrop: 'static'
@@ -33,131 +65,72 @@ function loader(show) {
     } else {
         $('#loader').modal('hide')
     }
-
 }
 $(function () {
     loader(true);
-})
+});
 
-eventBus.on('song:play', function (song) {
+player.addEventListener('ended', function(){
+    var next = songQueue.getNext();
+    if(next !== undefined){
+        //console.log('next', next);
+        global.eventBus.emit('song:play', next);
+    }else{
+        global.eventBus.emit('song:clear');
+    }
+});
 
-    player.src = url + '/music/' + song.file.replace(musicFolder, '');
+global.eventBus.on('song:play', function (song) {
+
+    //console.log('song:play', song);
+
+
+    //player.src = global.url + '/music/' + song.file.replace(global.config.musicFolder, '');
+    player.src ='file:///C:/' + song.file;
     player.play();
+    currentSong = song;
+
+    //global.eventBus.emit('song:played', song);
+
+});
+global.eventBus.on('song:add', function (song) {
+
+    if(!player.src || (!player.paused && player.ended)){
+        global.eventBus.emit('song:play', song)
+    }else{
+        // add to queue
+        songQueue.add(song);
+        global.eventBus.emit('song:added', song);
+    }
+
+    //console.log(songQueue);
 
 
 
 });
-eventBus.on('server:ready', function () {
+global.eventBus.on('server:ready', function () {
     console.log('server:ready');
-    var AppRouter = Backbone.Router.extend({
-        routes: {
-            "now-playing": "nowPlaying",
-            "my-music": 'myMusic',
-            "search": 'search',
-            "import-music": 'importMusic'
-        },
-        nowPlaying: function () {
-            showContent('now-playing');
-        },
-        myMusic: function () {
-            showContent('my-music');
-            
-            debugger;
-            if(this.myMusicLoaded){   
-                return;
-            }
-            
-            loader(true);
-            db.selectAllSongs()
-                .then(function (data) {
-                    loader(false);
-                    data.forEach(function (song) {
-
-                        song.play = '<div class="song-controls">' +
-                            '<a href="#" class="playButton" data-id="' + song.id + '"><i class="fa fa-play"></i></a> ' +
-                            '<a href="#" class="addButton" data-id="' + song.id + '"><i class="fa fa-plus"></i></a>' +
-                            '</div>';
-
-                    })
-
-                    var table = new TableLite({
-                        columns: [
-                            {
-                                name: 'play',
-                                property: 'play'
-                            },
-                            {
-                                name: 'Title',
-                                property: 'title'
-                            },
-                            {
-                                name: 'Artist',
-                                property: 'artist'
-                            },
-                            {
-                                name: 'Album',
-                                property: 'album'
-                            },
-
-                            {
-                                name: 'File',
-                                property: 'file'
-                            }
-                        ],
-                        data: data,
-                        parentElement: document.querySelector('#my-music')
-                    });
-
-                    $('.TableLite').delegate('.playButton', 'click', function (e) {
-                        e.preventDefault();
-                        var id = $(this).attr('data-id');
-
-                        db.getSongById(id)
-                            .then(function (song) {
-                                eventBus.emit('song:play', song);
-
-                            });
-                    })
-                    
-                    $('.TableLite tr').dblclick(function (e) {
-                        e.preventDefault();
-                        debugger;
-                        var id = $(this).find('.playButton').attr('data-id');
-
-                        db.getSongById(id)
-                            .then(function (song) {
-                                eventBus.emit('song:play', song);
-
-                            });
-                    })
-                    debugger;
-                    this.myMusicLoaded = true;
-                }.bind(this));
-        },
-        search: function () {
-            showContent('search');
-        },
-        importMusic: function () {
-            showContent('import-music');
-        }
-    });
     // Initiate the router
     var app_router = new AppRouter;
 
 
-    // Start Backbone history a necessary step for bookmarkable URL's
     Backbone.history.start();
 
-    app_router.navigate("my-music", {
-        trigger: true
-    });
-
-
-    //    //    setTimeout(function(){
-    //    qrcode.src = url + '/qr';
-
-
-    //test.innerHTML = url+ '';
+    app_router.navigate("songs", {trigger: true});
 
 
 });
+
+global.eventBus.on('load:songs', function(number, total){
+    //console.log('artistAlbum', number, total);
+    setLoaderText('loading songs info ' + number + ' of ' + total);
+});
+global.eventBus.on('load:artistAlbum', function(number, total){
+    //console.log('artistAlbum', number, total);
+    setLoaderText('loading Artists and Albums Info ' + number + ' of ' + total);
+});
+
+
+function setLoaderText(text){
+    $('#loader-message').text(text);
+}
