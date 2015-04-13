@@ -33,6 +33,11 @@ module.exports = {
                 'img VARCHAR' +
                 ');'
             );
+            tx.executeSql('create table if not exists appconfig (' +
+                'name VARCHAR PRIMARY KEY UNIQUE,' +
+                'value VARCHAR' +
+                ');'
+            );
         });
 
     },
@@ -125,6 +130,22 @@ module.exports = {
             });
     },
 
+    getConfig: function (name) {
+        return this.query('SELECT * FROM appconfig where name = "' + name + '"')
+            .then(function (data) {
+                return when.resolve((data[0])? data[0].value : undefined);
+            });
+    },
+    setConfig: function (name, value) {
+        this.db.transaction(function (tx) {
+            //INSERT OR REPLACE INTO book(id, name) VALUES(1001, 'Programming')
+            //INSERT OR IGNORE INTO book(id) VALUES(1001);
+            //UPDATE book SET name = 'Programming' WHERE id = 1001;
+            tx.executeSql('INSERT OR REPLACE INTO appconfig (name, value) VALUES (?,?);', [name, value]);
+            tx.executeSql('UPDATE appconfig SET value = "'+value+'" WHERE name = "'+name+'";');
+        });
+    },
+
 
     addArtist: function (data) {
         this.db.transaction(function (tx) {
@@ -177,6 +198,22 @@ module.exports = {
             tx.executeSql('DROP TABLE artists');
             tx.executeSql('DROP TABLE albums');
         });
+    },
+    deleteSongs: function () {
+        this.db.transaction(function (tx) {
+            tx.executeSql('DELETE FROM songs');
+            tx.executeSql('DELETE FROM artists');
+            tx.executeSql('DELETE FROM albums');
+        });
+    },
+    dropConfig: function () {
+        this.db.transaction(function (tx) {
+            tx.executeSql('DROP TABLE appconfig');
+        });
+    },
+    dropAll: function () {
+        this.drop();
+        this.dropConfig();
     }
 
 

@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('graceful-fs');
 var when = require('when');
 
 function getFilesRecursiveSync(dir, fileList, optionalFilterFunction) {
@@ -43,8 +43,6 @@ exports.getFilesRecursiveSync = getFilesRecursiveSync;
 function loadFileInfo(file) {
     var deferred = when.defer();
     var mm = require('musicmetadata');
-    var rs = fs.createReadStream(file);
-
     var stream = fs.createReadStream(file);
     
     function onClose(){
@@ -136,5 +134,5 @@ exports.generateHash  = generateHash;
 
 
 exports.loadFile = function (path) {
-    return require('fs').readFileSync(path, "utf-8");
+    return require('graceful-fs').readFileSync(path, "utf-8");
 }

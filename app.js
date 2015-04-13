@@ -86,7 +86,7 @@ global.eventBus.on('song:play', function (song) {
 
 
     //player.src = global.url + '/music/' + song.file.replace(global.config.musicFolder, '');
-    player.src ='file:///C:/' + song.file;
+    player.src ='file:///' + song.file;
     player.play();
     currentSong = song;
 
@@ -102,8 +102,7 @@ global.eventBus.on('song:add', function (song) {
         songQueue.add(song);
         global.eventBus.emit('song:added', song);
     }
-
-    //console.log(songQueue);
+   //console.log(songQueue);
 
 
 
@@ -128,6 +127,19 @@ global.eventBus.on('load:songs', function(number, total){
 global.eventBus.on('load:artistAlbum', function(number, total){
     //console.log('artistAlbum', number, total);
     setLoaderText('loading Artists and Albums Info ' + number + ' of ' + total);
+});
+
+global.eventBus.on('config:musicFolder', function(musicFolder){
+    global.db.setConfig('musicFolder', musicFolder);
+    global.db.deleteSongs();
+    player.src = '';
+    global.eventBus.emit('songs:reload');
+    loader(true);
+});
+
+global.eventBus.on('reload:ready', function(musicFolder){
+    global.db.setConfig('musicFolder', musicFolder);
+    loader(false);
 });
 
 

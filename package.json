@@ -1,5 +1,6 @@
 {
   "name": "prototype",
+  "version": "0.0.1",
   "main": "index.html",
   "window": {
     "title": "Prototype",
@@ -9,17 +10,21 @@
     "height": 700,
     "min_width": 1024,
     "min_height": 700,
-    "toolbar": false
+    "toolbar": true
   },
   "dependencies": {
-    "bookshelf": "^0.7.9",
     "express": "^4.12.3",
-    "knex": "^0.7.6",
+    "graceful-fs": "^3.0.6",
+    "ip": "^0.3.2",
     "musicmetadata": "^1.0.1",
     "qr-image": "^3.1.0",
-    "sqlite3": "^3.0.5",
+    "request": "^2.55.0",
     "underscore": "^1.8.3",
-    "when": "^3.7.2",
-    "nodewebkit": "0.10.5"
+    "when": "^3.7.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-node-webkit-builder": "^1.0.2"
   }
 }

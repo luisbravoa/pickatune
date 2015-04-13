@@ -13,9 +13,10 @@ global.models = require(path.join(process.cwd(), 'models', 'index.js')).models;
 
 global.ip = require('ip').address();
 global.url = 'http://' + global.ip + ':2323';
-global.utils = require('./misc/utils');
+global.utils = require(path.join(process.cwd(), 'misc', 'utils.js'));
 global.config = require('./config');
 
+console.log(global.utils);
 
 var routes = {
     Main: require('./routes/Main'),
@@ -39,16 +40,28 @@ global.eventBus = new EventEmitter();
 
 
 
-try{
+function reload(){
+    try{
+        global.db.getConfig('musicFolder')
+            .then(function(musicFolder){
 
-    setTimeout(function(){
-        routes.Main.loadfiles();
-    }, 3000)
+                if(musicFolder !== undefined){
+                    routes.Main.loadfiles(musicFolder);
+                }
+                console.log(musicFolder);
 
-}catch (e){
-    console.log(e)
+            });
+
+
+    }catch (e){
+        console.log(e)
+    }
 }
 
+
+
+
+global.eventBus.on('songs:reload', reload);
 
 
 var options = {

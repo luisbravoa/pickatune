@@ -4,8 +4,8 @@ var total;
 
 
 module.exports = {
-    loadfiles: function () {
-        global.utils.getFileNames(global.config.musicFolder)
+    loadfiles: function (musicFolder) {
+        global.utils.getFileNames(musicFolder)
             .then(function (files) {
                 total = files.length;
                 files.forEach(function (file) {
@@ -16,7 +16,6 @@ module.exports = {
                 loadQueue();
             });
     }
-
 
 };
 
@@ -92,7 +91,7 @@ function loadArtistAndAlbumData() {
 function loadArtistAlbumQueue() {
 
     if (artistAlbumQueue.length === 0) {
-        //global.eventBus.emit('server:ready');
+        global.eventBus.emit('reload:ready');
         return;
     }
 
