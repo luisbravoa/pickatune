@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/lib/handlebars-v3.0.1.js"></script>
+    <script src="js/lib/jquery-2.1.3.js"></script>
+    <script src="js/underscore.js"></script>
+    <script src="../ui/Player.js"></script>
+    <script>
+        var player
+        $(function(){
+            player = new Player();
+            console.log(player);
+            $('#container').append(player.element);
+        });
+
+    </script>
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="style/player.css" rel="stylesheet">
+
+    <style>
+        body{
+            background-color: #222222;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="container">
+
+</div>
+</body>
+</html>

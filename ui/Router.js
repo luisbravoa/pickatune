@@ -1,7 +1,5 @@
 var AppRouter = Backbone.Router.extend({
     initialize: function(){
-        console.log('INIT');
-
 
         global.eventBus.on('songs:reload', function () {
 
@@ -24,6 +22,10 @@ var AppRouter = Backbone.Router.extend({
             if(this.songsList){
                 this.songsList.destroy();
                 delete this.songQueue;
+            }
+            if(this.detailList){
+                this.detailList.destroy();
+                delete this.detailList;
             }
             $contentWrapper.empty();
         }.bind(this));
@@ -50,54 +52,147 @@ var AppRouter = Backbone.Router.extend({
         "queue": 'queue',
         "party": 'party',
         "settings": 'settings',
-        "artists/:name/songs": 'artistsSongs'
+        "artist/:artist": 'detail',
+        "album/:artist/:album": 'detail'
+    },
+    detail: function(artist, album){
+        console.log(artist, album)
+
+        var data = {};
+
+
+        function getPlay(song){
+            return '<div class="song-controls">' +
+            '<a href="#" class="playButton" data-id="' + song.file + '"><i class="fa fa-play"></i></a> ' +
+            '<a href="#" class="addButton" data-id="' + song.file + '"><i class="fa fa-plus"></i></a>' +
+            '</div>';
+        }
+
+        // album
+        if(artist !== null && album !== null){
+
+            data.albums = {};
+            data.albums[album] = global.songs.filter(function(song){
+                return (song.artist === artist && song.album === album);
+            });
+
+
+
+        }else if(artist !== null){
+            var songs = global.songs.filter(function(song){
+                return (song.artist === artist);
+            });
+
+
+            var albums = {};
+
+            songs.forEach(function(song){
+
+                song.play = getPlay(song);
+                if(albums[song.album] === undefined){
+                    albums[song.album] = [song];
+                }else{
+                    albums[song.album].push(song);
+                }
+            });
+            data.albums = albums;
+        }
+
+        data.artist = artist;
+
+
+        if(this.detailList) {
+           this.detailList.destroy();
+        }
+            //loader(true);
+            this.detailList = new DetailList({
+                data: data,
+                parentElement: document.querySelector('#page-wrapper')
+            });
+            //loader(false);
+
+        showContent(this.detailList.element);
     },
     albums: function(){
         if(!this.albumsList){
-            loader(true);
+            //loader(true);
             this.albumsList = new ThumbnailList({
+                id: 'albums',
                 type: 'album',
+                defaultImage: 'public/img/album_default.png',
                 url: global.url + "/album",
-                primaryLink: {url:'#artists/{#}/songs', property: ['name']},
-                secondaryLink: {url:'#artists/{#}/songs', property: ['name']}
+                primaryLink: {url:'#album/{#}/{#}', property: ['artist', 'name']},
+                secondaryLink: {url:'#artist/{#}', property: ['artist']},
+                getData: function(index, length, cb){
+                    var data = global.albums.slice(index, index + length);
+
+                    cb(data);
+                },
+                getInfo: function(item, cb){
+                    $.get('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=3560007ae1982c970859a515efeb3174&artist=' + item.artist + '&album=' + item.name + '&format=json',
+                        function(res){
+                            var data = {};
+                            data.imgUrl = (res !== undefined && res.album.image && res.album.image.length > 0) ? res.album.image[3]['#text'] : '';
+                            cb(data)
+                        });
+
+
+
+                },
+                parentElement: document.querySelector('#page-wrapper')
             });
-            loader(false);
+            //loader(false
         }
 
         showContent(this.albumsList.element);
     },
     artists: function(){
-        loader(true);
+        //loader(true);
         //$contentWrapper.empty();
         if(this.artistList === undefined){
             this.artistList = new ThumbnailList({
+                id: 'artists',
                 type: 'artist',
                 url: global.url + "/artist",
-                primaryLink: {url:'#artists/{#}/songs', property: ['name']},
-                secondaryLink: {url:'#artists/{#}/songs', property: ['name']}
+                defaultImage: 'public/img/artist_default.png',
+                primaryLink: {url:'#artist/{#}', property: ['name']},
+                secondaryLink: {url:'#artist/{#}', property: ['name']},
+                getData: function(index, length, cb){
+                    console.log(index, length, global.artists,global.artists.slice(index, index + length ));
+                    var data = global.artists.slice(index, index + length);
+
+                    cb(data);
+                },
+                getInfo: function(item, cb){
+
+                    $.get('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + item.name + '&api_key=3560007ae1982c970859a515efeb3174&format=json',
+                        function(res){
+                            var data = {};
+                            data.imgUrl = (res !== undefined && res.artist.image && res.artist.image.length > 0) ? res.artist.image[3]['#text'] : '';
+                            cb(data)
+                        });
+                },
+                parentElement: document.querySelector('#page-wrapper')
             });
         }
 
         showContent(this.artistList.element);
 
-        loader(false);
+        //loader(false);
 
 
     },
     songs: function () {
-        loader(true);
+        //loader(true);
 
         if(this.songsList === undefined){
             this.songsList = new SongList({
-                type: 'artist',
-                url: global.url + "/artist",
-                primaryLink: {url:'#artists/{#}/songs', property: ['name']},
-                secondaryLink: {url:'#artists/{#}/songs', property: ['name']}
+                parentElement: document.querySelector('#page-wrapper')
             });
         }
         showContent(this.songsList.element);
 
-        loader(false);
+        //loader(false);
     },
     party: function () {
         //loader(true);
@@ -107,7 +202,7 @@ var AppRouter = Backbone.Router.extend({
             });
         }
         showContent(this.partyRoute.element);
-        loader(false);
+        //loader(false);
     },
     settings: function () {
         //loader(true);
@@ -117,7 +212,7 @@ var AppRouter = Backbone.Router.extend({
             });
         }
         showContent(this.settingsRoute.element);
-        loader(false);
+        //loader(false);
     },
     queue: function () {
 

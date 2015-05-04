@@ -2,14 +2,6 @@ body {
     background-color: #000;
 }
 
-#player-wrapper {
-    height: 30px;
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    background-color: #222;
-}
-
 #page-wrapper {
     width: 100%;
     padding: 0;
@@ -19,5 +11,5 @@ body {
 }
 
 #player {
-    width: calc(100% - 225px);
+    /*width: calc(100% - 225px);*/
 }

@@ -7,16 +7,15 @@ var http = require('http'),
     _ = require('underscore'),
     when = require('when');
 
-var request = require('request');
 
 global.models = require(path.join(process.cwd(), 'models', 'index.js')).models;
 
 global.ip = require('ip').address();
 global.url = 'http://' + global.ip + ':2323';
 global.utils = require(path.join(process.cwd(), 'misc', 'utils.js'));
-global.config = require('./config');
+//global.config = require('./config');
 
-console.log(global.utils);
+global.baseDir = process.cwd();
 
 var routes = {
     Main: require('./routes/Main'),
@@ -39,27 +38,23 @@ var EventEmitter = require("events").EventEmitter;
 global.eventBus = new EventEmitter();
 
 
-
-function reload(){
-    try{
-        global.db.getConfig('musicFolder')
-            .then(function(musicFolder){
-
-                if(musicFolder !== undefined){
-                    routes.Main.loadfiles(musicFolder);
-                }
-                console.log(musicFolder);
-
-            });
+function reload() {
+    global.db.getConfig('musicFolder')
+        .then(function (musicFolder) {
 
 
-    }catch (e){
-        console.log(e)
-    }
+            app.use('/music', express.static(musicFolder));
+            if (musicFolder !== undefined && musicFolder !== 'undefined') {
+                console.log('refresssssssssssssssssssh', musicFolder);
+                routes.Main.loadfiles(musicFolder);
+            }else{
+                global.eventBus.emit('reload:error');
+            }
+            console.log('>>>>>>>>>>. ', musicFolder);
+        });
+
 }
-
-
-
+reload();
 
 global.eventBus.on('songs:reload', reload);
 
@@ -68,6 +63,7 @@ var options = {
     host: 'localhost',
     port: 2323
 };
+
 
 
 //check if server is already running
@@ -80,26 +76,34 @@ http.get(options, function (res) {
     app.set('port', process.env.PORT || 2323);
 
     app.use(express.static(path.join(process.cwd(), 'public')));
-    app.use('/music', express.static(global.config.musicFolder));
+
+
 
 
     app.get('/qr', routes.Index.qr);
-
-    // Songs
-    app.get('/song', routes.Songs.list);
+    app.get('/song/length', routes.Songs.length);
+    app.get('/song/index/:indexes', routes.Songs.getSongByIndex);
     app.get('/song/play/:id', routes.Songs.play);
     app.get('/song/add/:id', routes.Songs.add);
+    // Songs
+    app.get('/song', routes.Songs.list);
+    app.get('/song/:id', routes.Songs.getById);
+
 
     // Artists
     app.get('/artist', routes.Artists.list);
-    app.get('/artist/:name/song', routes.Artists.listSongs);
+    app.get('/artist/:index/:length', routes.Artists.listPaginated);
 
     // Albums
     app.get('/album', routes.Albums.list);
+    app.get('/album/:index/:length', routes.Albums.listPaginated);
 
 
     http.createServer(app).listen(app.get('port'), function (err) {
         console.log('server created');
-        global.eventBus.emit('server:ready');
+        setTimeout(function(){
+            global.eventBus.emit('server:ready');
+        }, 1000);
+
     });
 });

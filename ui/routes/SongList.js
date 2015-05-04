@@ -4,52 +4,105 @@ function SongList(options) {
 
 
 
-    requestAnimationFrame(this.initialize.bind(this))
+    this.table = new VirtualTable({
+        columns: [
+            {
+                name: 'play',
+                property: 'play',
+                style: 'min-width:105px; max-width: 105px; width: 105px;'
+            },
+            {
+                name: 'Title',
+                property: 'title'
+            },
+            {
+                name: 'Artist',
+                property: 'artist'
+            },
+            {
+                name: 'Album',
+                property: 'album'
+            },
+            {
+                name: 'File',
+                property: 'file'
+            }
+        ],
+        length: global.songs.length,
+        parentElement: this.options.parentElement,
+        scrollableElement: this.element,
+        getData: function(indexes, cb){
+            //console.log(index, length);
 
+
+            var response = {};
+
+            indexes.forEach(function(index){
+                if(global.songs[index] !== undefined){
+                    var song = _.clone(global.songs[index]);
+
+                    song.play = '<div class="song-controls">' +
+                    '<a href="#" class="playButton" data-id="' + song.file + '"><i class="fa fa-play"></i></a> ' +
+                    '<a href="#" class="addButton" data-id="' + song.file + '"><i class="fa fa-plus"></i></a>' +
+                    '</div>';
+
+                    response[index] = song;
+                }
+            }.bind(this));
+
+            cb(response);
+
+        }.bind(this)
+    });
+
+    this.element.appendChild(this.table.element);
+    //requestAnimationFrame(this.initialize.bind(this))
+
+
+    $(this.element).delegate('.playButton', 'click', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+
+        //debugger;
+
+        var song = global.models.Song.getByFile(id);
+
+        if(song){
+            global.eventBus.emit('song:play', song);
+        }
+    });
+    $(this.element).delegate('.addButton', 'click', function (e) {
+        e.preventDefault();
+        var id = $(this).attr('data-id');
+        var song = global.models.Song.getByFile(id);
+
+            if(song){
+                global.eventBus.emit('song:add', song);
+            }
+    });
+
+    $('#song-list tr').dblclick(function (e) {
+        e.preventDefault();
+        var id = $(this).find('.playButton').attr('data-id');
+        var song = global.models.Song.getByFile(id);
+
+        if(song){
+            global.eventBus.emit('song:play', song);
+        }
+    });
 }
 
 SongList.prototype.initialize = function(){
     var template = Handlebars.compile(this.html);
-    console.log(options);
+    //console.log(options);
     this.getData(function (items) {
-        console.log({items: items});
+        //console.log({items: items});
 
 
         this.element.innerHTML = template({items: items});
         //this.options.parentElement.appendChild(this.element);
 
-        $('#song-list').delegate('.playButton', 'click', function (e) {
-            e.preventDefault();
-            var id = $(this).attr('data-id');
 
-            global.db.getSongById(id)
-                .then(function (song) {
-                    global.eventBus.emit('song:play', song);
-
-                });
-        });
-        $('#song-list').delegate('.addButton', 'click', function (e) {
-            e.preventDefault();
-            var id = $(this).attr('data-id');
-
-            global.db.getSongById(id)
-                .then(function (song) {
-                    global.eventBus.emit('song:add', song);
-
-                });
-        });
-
-        $('#song-list tr').dblclick(function (e) {
-            e.preventDefault();
-            debugger;
-            var id = $(this).find('.playButton').attr('data-id');
-
-            global.db.getSongById(id)
-                .then(function (song) {
-                    global.eventBus.emit('song:play', song);
-
-                });
-        });
     }.bind(this));
 };
 SongList.prototype.html =
@@ -75,7 +128,7 @@ SongList.prototype.html =
 
 
 SongList.prototype.getData = function (cb) {
-    global.db.selectAllSongs()
+    global.models.Song.selectAll()
         .then(function (data) {
             data.forEach(function (song) {
 

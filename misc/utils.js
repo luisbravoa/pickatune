@@ -3,7 +3,7 @@ var when = require('when');
 
 function getFilesRecursiveSync(dir, fileList, optionalFilterFunction) {
     if (!fileList) {
-        grunt.log.error("Variable 'fileList' is undefined or NULL.");
+        //grunt.log.error("Variable 'fileList' is undefined or NULL.");
         return;
     }
     var files = fs.readdirSync(dir);

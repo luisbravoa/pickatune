@@ -1,0 +1,81 @@
+#player{
+    vertical-align: middle;
+    width: 200px;
+    text-align: center;
+}
+
+#player.playing #player-play{
+    display: none;
+}
+#player:not(.playing) #player-pause{
+    display: none;
+}
+
+.player-button{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+#player-play, #player-pause{
+    width: 50px;
+    height: 50px;
+}
+
+#timeline{
+    width: 200px;
+    height: 7px;
+    background: #000000;
+    margin-top: 10px;
+    float: left;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#playhead{
+    width: 0;
+    height: 7px;
+    margin-top: 0px;
+
+    background: #FFFFFF;
+    opacity: 0.5;
+}
+
+#times{
+    height: 15px;
+    color: #ffffff;
+    font-size: 10px;
+    margin-bottom: 20px;
+}
+
+#times-left{
+    float: left;
+}
+
+#times-right{
+    float: right;
+}
+#player #info{
+    color: #ffffff;
+    font-size: 12px;
+    height: 45px;
+    vertical-align: middle;
+}
+#player #info-title{
+    font-weight: bold;
+}
+#player #img-container{
+    height: 200px;
+    width: 200px;
+    background: #000000;
+    border: 1px solid #262626;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+#player #img{
+    width: 100%;
+    height: 100%;
+}

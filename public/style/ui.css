@@ -1,68 +1,4 @@
-.list-container .list-item{
-    display: inline-block;
-    width: 175px;
-    margin: 10px;
-    opacity: .7;
-    vertical-align: top;
-}
-.list-container .list-item a{
-    color: #ffffff;
-    text-decoration: none;
-    text-align: center;
-}
 
-.list-container .list-item-img-container{
-    width: 100%;
-    overflow: hidden;
-    vertical-align: middle;
-    text-align: center;
-    position:relative;
-}
-.list-container .list-item-img-container img{
-
-    display: inline-block;
-    vertical-align: middle;
-}
-.list-item.artist .list-item-img-container{
-    width: 100%;
-    /*height: 100%;*/
-    height: 125px;
-}
-.list-item.album .list-item-img-container img{
-
-    max-height: 175px;
-    min-width: 100%;
-}
-
-.list-item.album img{
-    width: 100%;
-    height: 100%;
-}
-
-.list-container .list-item:hover{
-    opacity: 1;
-}
-
-.list-item-link-container{
-    height: 45px;
-    text-align: center;
-    background: #222;
-    padding-top: 5px;
-    padding-bottom: 10px;
-}
-
-
-.list-item-primary-link{
-    font-weight: bold;
-}
-.list-item-secondary-link{
-    padding-top: 5px;
-    font-style: italic;
-}
-
-.list-item.album .list-item-link-container{
-    height: 70px;
-}
 
 #song-list table {
     font-family: verdana,arial,sans-serif;
@@ -78,7 +14,7 @@
     border-color: #ccc;
 }
 #song-list table tr {
-    border-bottom: 1px #222 solid;
+    /*border-bottom: 1px #222 solid;*/
 }
 #song-list table td {
     padding: 8px;

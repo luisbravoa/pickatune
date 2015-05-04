@@ -10,7 +10,9 @@ function Settings(options) {
 
         $('#settings-save').click(function(e){
             var path = $('#musicFolder').val();
-            if(path !== undefined){
+            if(path !== undefined && path !== ''){
+                loader(true);
+
                 global.eventBus.emit('config:musicFolder', path);
             }
         });
