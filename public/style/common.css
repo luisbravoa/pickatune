@@ -9,9 +9,9 @@ body{
 }
 
 ::-webkit-scrollbar {
-    height: 7px;
-    width: 7px;
-    background: #000;
+    height: 12px;
+    width: 12px;
+    background: #0F0F0F;
 }
 
 ::-webkit-scrollbar-thumb {

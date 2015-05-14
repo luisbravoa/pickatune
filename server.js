@@ -43,10 +43,11 @@ function reload() {
         .then(function (musicFolder) {
 
 
-            app.use('/music', express.static(musicFolder));
+            
             if (musicFolder !== undefined && musicFolder !== 'undefined') {
                 console.log('refresssssssssssssssssssh', musicFolder);
                 routes.Main.loadfiles(musicFolder);
+                app.use('/music', express.static(musicFolder));
             }else{
                 global.eventBus.emit('reload:error');
             }
