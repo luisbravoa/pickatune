@@ -12,12 +12,9 @@
     <title>Prototype</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/style/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="public/css/sb-admin.css" rel="stylesheet">
-
-    <link href="public/css/style.css" rel="stylesheet">
+    <link href="public/style/app.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="public/style/table.css">
     <link rel="stylesheet" type="text/css" href="public/style/common.css">
     <link rel="stylesheet" type="text/css" href="public/style/ui.css">
@@ -26,133 +23,6 @@
     <!-- Custom Fonts -->
     <link href="public/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <script>
-        var nw = require('nw.gui');
-        var win = nw.Window.get();
-        win.isMaximized = false;
-    </script>
-
-    <style>
-        #songs {
-            font-size: 12px;
-        }
-        
-        #page-wrapper {
-            font-size: 12px;
-            overflow: auto;
-            /*            height: calc(100% - 30px);*/
-        }
-        
-        #page-wrapper,
-        #content-wrapper {
-            height: 100%;
-        }
-        
-        #song-list,
-        #artists,
-        #albums {
-            overflow: scroll;
-            height: 100%;
-        }
-        
-        tr .song-controls > * {
-            opacity: 0.2;
-        }
-        
-        tr:hover .song-controls > * {
-            opacity: 1;
-        }
-        
-        .navbar-header {
-            width: 210px;
-        }
-        
-        #player-wrapper #player {
-            margin-top: 10px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        #qr-wrapper {
-            margin-top: 20px;
-            background-color: white;
-            width: 200px;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.7;
-        }
-        
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 30px;
-            background-color: black;
-            -webkit-app-region: drag;
-            -webkit-user-select: none;
-            vertical-align: top;
-        }
-        
-        #header-controls {
-            position: absolute;
-            right: 0;
-            width: 100px;
-            padding-right: 10px;
-            height: 30px;
-            text-align: right;
-            top: 0;
-        }
-        
-        #header-controls div {
-            -webkit-app-region: no-drag;
-            vertical-align: -webkit-baseline-middle;
-            display: inline-block;
-            
-        }
-        #header-controls i {
-            color: white;
-        }
-        
-        #header-title{
-            color: white;
-            display: inline-block;
-            width: calc(100% - 100px);
-            vertical-align: middle;
-            padding-left: 10px;
-            line-height: 30px;
-            text-align: center;
-        }
-        
-        #wrapper {
-            position: fixed;
-            top: 80px;
-            right: 0px;
-            left: 226px;
-            bottom: 0;
-            padding-left: 0;
-            height: calc(100% - 80px);
-        }
-        
-        .navbar-fixed-top {
-            top: 30px;
-        }
-        
-        .nav.navbar-nav.side-nav {
-            margin-top: 30px;
-        }
-        
-        .content-wrapper {
-            padding-top: 30px;
-        }
-    </style>
 
 </head>
 
@@ -160,6 +30,10 @@
     <header>
         <div id="header-title">Prototype</div>
         <div id="header-controls">
+            <div><a href="#" id="debug"><i class="fa fa-fw fa-info-circle"></i></a>
+            </div>
+            <div><a href="#" id="expand"><i class="fa fa-fw fa-expand"></i></a>
+            </div>
             <div><a href="#" id="minimize"><i class="fa fa-fw fa-minus"></i></a>
             </div>
             <div><a href="#" id="maximize"><i class="fa fa-fw fa-square-o"></i></a>
@@ -169,93 +43,84 @@
         </div>
     </header>
 
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Prototype</a>
-            </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-left top-nav">
-                <li>
-                    <a href="#songs">Songs</a>
-                </li>
-                <li>
-                    <a href="#artists">Artists</a>
-                </li>
-                <li>
-                    <a href="#albums">Albums</a>
-                </li>
-                <li>
-                    <a href="#queue">Queue</a>
-                </li>
-                <li>
-                    <a href="#settings"><i class="fa fa-fw fa-cog"></i> Settings</a>
-                </li>
-            </ul>
-            <ul class="nav navbar-right top-nav">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">Prototype</a>
+        </div>
+        <!-- Top Menu Items -->
+        <ul class="nav navbar-left top-nav">
+            <li>
+                <a href="#songs">Songs</a>
+            </li>
+            <li>
+                <a href="#artists">Artists</a>
+            </li>
+            <li>
+                <a href="#albums">Albums</a>
+            </li>
+            <li>
+                <a href="#queue">Queue</a>
+            </li>
+            <li>
+                <a href="#settings"><i class="fa fa-fw fa-cog"></i> Settings</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-right top-nav">
 
-                <li class="dropdown">
+            <li class="dropdown">
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-
-            </ul>
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <div id="player-wrapper"></div>
-                    <div id="qr-wrapper">
-                        <img id="qr" height="200" width="200" />
-                    </div>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
+                <ul class="dropdown-menu alert-dropdown">
+                    <li>
+                        <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
+                    </li>
+                    <li>
+                        <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="#">View All</a>
+                    </li>
                 </ul>
+            </li>
 
-
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
+        </ul>
+        <!-- /.navbar-collapse -->
+    </nav>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <side>
+        <div id="player-wrapper"></div>
+        <div id="qr-wrapper">
+            <img id="qr" height="200" width="200" />
+            <div id="url"></div>
+        </div>
+    </side>
+    <content>
 
         <div id="page-wrapper">
 
-            <div id="content-wrapper" class="container-fluid">
+            <div id="content-wrapper" class="">
 
             </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
-    </div>
+    </content>
     <!-- /#wrapper -->
     <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div style="position: fixed; top:calc(50% - 50px); margin-left: auto; margin-right: auto; width: 300px;left: calc(50% - 150px); text-align:center;">
@@ -272,7 +137,7 @@
     <script src="public/js/common/Table.js"></script>
     <script src="ui/uiUtils.js"></script>
     <script src="ui/Player.js"></script>
-    <script src="ui/Queue.js"></script>
+    <script src="ui/AppPlayer.js"></script>
     <script src="ui/Router.js"></script>
     <script src="ui/routes/Party.js"></script>
     <script src="ui/routes/DetailList.js"></script>
@@ -292,6 +157,28 @@
     <script src="public/js/lib/bootstrap.min.js"></script>
 
     <script>
+        
+        var nw = require('nw.gui');
+        var win = nw.Window.get();
+        win.isMaximized = false;
+        // Expand
+        document.getElementById('debug').onclick = function () {
+            win.showDevTools();
+        };
+        
+        // Expand
+        document.getElementById('expand').onclick = function () {
+            win.enterFullscreen();
+            $('body').addClass('fullScreen');
+        };
+
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) {
+                win.leaveFullscreen();
+                $('body').removeClass('fullScreen');
+            }
+        });
+
         // Min
         document.getElementById('minimize').onclick = function () {
             win.minimize();
@@ -316,6 +203,10 @@
 
         win.on('unmaximize', function () {
             win.isMaximized = false;
+        });
+        
+        $('#qr-wrapper').click(function(){
+            nw.Shell.openExternal(global.url);
         });
     </script>
 </body>

@@ -9,6 +9,19 @@ function Player(options) {
 
     this.$element.find('#player-play').click(this.play.bind(this));
     this.$element.find('#player-pause').click(this.pause.bind(this));
+    this.$element.find('#player-stop').click(this.stop.bind(this));
+    
+    this.$element.find('#player-backward').click(function(){
+        if(this.options.onBackward){
+            this.options.onBackward();
+        }
+    }.bind(this));
+    
+    this.$element.find('#player-forward').click(function(){
+        if(this.options.onForward){
+            this.options.onForward();
+        }
+    }.bind(this));
 
 
     this.audio.addEventListener("canplaythrough", function () {
@@ -30,7 +43,7 @@ function Player(options) {
         moveplayhead.call(this, event);
         this.audio.currentTime = this.duration * clickPercent.call(this, event);
     }.bind(this), false);
-
+    
 }
 
 function secondsToHms(d) {
@@ -69,7 +82,6 @@ function clickPercent(e) {
 Player.prototype.html =
     '<div id="player">' +
             '<div id="img-container"><img id="img"></div>' +
-
             '<div id="info"> ' +
             '<div id="info-title"></div>' +
             '<div id="info-artist"></div> ' +
@@ -86,6 +98,7 @@ Player.prototype.html =
     '<div id="buttons">' +
         '<audio id="audio"></audio>' +
         '<button id="player-backward" class="player-button"><i class="fa fa-fast-backward"></i></button>' +
+        '<button id="player-stop" class="player-button"><i class="fa fa-stop"></i></button>' +
         '<button id="player-play" class="player-button"><i class="fa fa-play"></i></button>' +
         '<button id="player-pause" class="player-button"><i class="fa fa-pause"></i></button>' +
         '<button id="player-forward" class="player-button"><i class="fa fa-fast-forward"></i></button>' +
@@ -115,6 +128,13 @@ Player.prototype.play = function () {
     console.log('play');
     this.audio.play();
     this.$element.addClass('playing');
+};
+
+Player.prototype.stop = function () {
+    console.log('stop');
+    this.audio.pause();
+    this.audio.currentTime = 0;
+    this.$element.removeClass('playing');
 };
 
 Player.prototype.pause = function () {

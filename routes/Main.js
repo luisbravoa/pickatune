@@ -14,13 +14,19 @@ module.exports = {
 
                 var i = 0;
                 global.songs = files.map(function(file){
-                    var song = {file: file, url: file.replace(musicFolder, ''), id: i};
+                    var song = {
+                        file: file,
+                        title: file.substring(file.lastIndexOf('/')+1),
+                        artist: '(unknown)',
+                        album: '(unknown)',
+                        url: file.replace(musicFolder, ''), 
+                        id: i};
                     i++;
                     return song;
                 });
                 setTimeout(function(){
                     global.eventBus.emit('reload:ready');
-                }, 1000 * 10);
+                }, 1000 * 2);
 
 
                 queue(files, function (i, recursive) {
@@ -28,9 +34,23 @@ module.exports = {
                         .then(function (data) {
                             global.eventBus.emit('load:songs', i, files.length);
                             var id = global.songs[i].id;
-                            global.songs[i] = data;
+                        
+                        for(key in data){
+                            console.log(key, data[key], data[key] !== undefined);
+                            if(data[key] !== undefined && data[key] !== ''){
+                                global.songs[i][key] = data[key];
+                            }    
+                        }
+                        
+//                        if(data.artist !== undefined){
+//                            global.songs[i].artist = data.artist;
+//                        }
+//                        if(data.album !== undefined){
+//                            global.songs[i].album = data.album;
+//                        }
+//                            global.songs[i] = data;
 
-                            global.songs[i].id = id;
+//                            global.songs[i].id = id;
 
                             if (!isEmpty(data.artist) && !isInAritsts(data.artist)) {
                                 global.artists.push({name: data.artist});
@@ -49,7 +69,7 @@ module.exports = {
                 }, function(){
                     // done
 
-                    //global.eventBus.emit('reload:ready');
+//                    global.eventBus.emit('reload:ready');
                 });
 
 

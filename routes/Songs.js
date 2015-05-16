@@ -1,4 +1,5 @@
 var _ = require('underscore');
+
 exports.play = function (req, res) {
 
     var id = parseInt(req.param('id'));
@@ -31,8 +32,6 @@ exports.list = function (req, res) {
     res.send(global.songs);
 };
 
-
-
 exports.listPaginated = function (req, res) {
 
     var index = parseInt(req.param("index"));
@@ -47,8 +46,6 @@ exports.listPaginated = function (req, res) {
     };
     res.send(response);
 };
-
-
 
 
 exports.getSongByIndex = function (req, res) {

@@ -1,29 +1,29 @@
 var AppRouter = Backbone.Router.extend({
-    initialize: function(){
+    initialize: function () {
 
         global.eventBus.on('songs:reload', function () {
 
-            if(this.songQueue){
+            if (this.songQueue) {
                 this.songQueue.destroy();
                 delete this.songQueue;
             }
-            if(this.albumsList){
+            if (this.albumsList) {
                 this.albumsList.destroy();
                 delete this.albumsList;
             }
-            if(this.artistList){
+            if (this.artistList) {
                 this.artistList.destroy();
                 delete this.artistList;
             }
-            if(this.songsList){
+            if (this.songsList) {
                 this.songsList.destroy();
                 delete this.songsList;
             }
-            if(this.songsList){
+            if (this.songsList) {
                 this.songsList.destroy();
                 delete this.songQueue;
             }
-            if(this.detailList){
+            if (this.detailList) {
                 this.detailList.destroy();
                 delete this.detailList;
             }
@@ -32,7 +32,7 @@ var AppRouter = Backbone.Router.extend({
 
         global.eventBus.on('song:play', function (song) {
             //console.log('router play');
-            if(this.songQueue){
+            if (this.songQueue) {
                 this.songQueue.setCurrent(song);
             }
         }.bind(this));
@@ -40,7 +40,7 @@ var AppRouter = Backbone.Router.extend({
         global.eventBus.on('song:added', function (song) {
             //console.log('router add');
 
-            if(this.songQueue){
+            if (this.songQueue) {
                 this.songQueue.addSong(song);
             }
         }.bind(this));
@@ -55,43 +55,69 @@ var AppRouter = Backbone.Router.extend({
         "artist/:artist": 'detail',
         "album/:artist/:album": 'detail'
     },
-    detail: function(artist, album){
+    showContent: function (element) {
+
+
+        if (element.parentNode !== contentWrapper) {
+            $contentWrapper.append(element);
+        }
+
+        $contentWrapper.children().hide();
+        $(element).show();
+
+    },
+
+    loader: function (show) {
+        if (show) {
+            $('#loader').modal({
+                backdrop: 'static'
+            });
+        } else {
+            $('#loader').modal('hide')
+        }
+    },
+
+    setLoaderText: function (text) {
+        $('#loader-message').text(text);
+    },
+
+    detail: function (artist, album) {
         console.log(artist, album)
 
         var data = {};
 
 
-        function getPlay(song){
+        function getPlay(song) {
             return '<div class="song-controls">' +
-            '<a href="#" class="playButton" data-id="' + song.file + '"><i class="fa fa-play"></i></a> ' +
-            '<a href="#" class="addButton" data-id="' + song.file + '"><i class="fa fa-plus"></i></a>' +
-            '</div>';
+                '<a href="#" class="playButton" data-id="' + song.file + '"><i class="fa fa-play"></i></a> ' +
+                '<a href="#" class="addButton" data-id="' + song.file + '"><i class="fa fa-plus"></i></a>' +
+                '</div>';
         }
 
         // album
-        if(artist !== null && album !== null){
+        if (artist !== null && album !== null) {
 
             data.albums = {};
-            data.albums[album] = global.songs.filter(function(song){
+            data.albums[album] = global.songs.filter(function (song) {
                 return (song.artist === artist && song.album === album);
             });
 
 
 
-        }else if(artist !== null){
-            var songs = global.songs.filter(function(song){
+        } else if (artist !== null) {
+            var songs = global.songs.filter(function (song) {
                 return (song.artist === artist);
             });
 
 
             var albums = {};
 
-            songs.forEach(function(song){
+            songs.forEach(function (song) {
 
                 song.play = getPlay(song);
-                if(albums[song.album] === undefined){
+                if (albums[song.album] === undefined) {
                     albums[song.album] = [song];
-                }else{
+                } else {
                     albums[song.album].push(song);
                 }
             });
@@ -101,36 +127,42 @@ var AppRouter = Backbone.Router.extend({
         data.artist = artist;
 
 
-        if(this.detailList) {
-           this.detailList.destroy();
+        if (this.detailList) {
+            this.detailList.destroy();
         }
-            //loader(true);
-            this.detailList = new DetailList({
-                data: data,
-                parentElement: document.querySelector('#page-wrapper')
-            });
-            //loader(false);
+        //loader(true);
+        this.detailList = new DetailList({
+            data: data,
+            parentElement: document.querySelector('#page-wrapper')
+        });
+        //loader(false);
 
-        showContent(this.detailList.element);
+        this.showContent(this.detailList.element);
     },
-    albums: function(){
-        if(!this.albumsList){
+    albums: function () {
+        if (!this.albumsList) {
             //loader(true);
             this.albumsList = new ThumbnailList({
                 id: 'albums',
                 type: 'album',
                 defaultImage: 'public/img/album_default.png',
                 url: global.url + "/album",
-                primaryLink: {url:'#album/{#}/{#}', property: ['artist', 'name']},
-                secondaryLink: {url:'#artist/{#}', property: ['artist']},
-                getData: function(index, length, cb){
+                primaryLink: {
+                    url: '#album/{#}/{#}',
+                    property: ['artist', 'name']
+                },
+                secondaryLink: {
+                    url: '#artist/{#}',
+                    property: ['artist']
+                },
+                getData: function (index, length, cb) {
                     var data = global.albums.slice(index, index + length);
 
                     cb(data);
                 },
-                getInfo: function(item, cb){
+                getInfo: function (item, cb) {
                     $.get('http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=3560007ae1982c970859a515efeb3174&artist=' + item.artist + '&album=' + item.name + '&format=json',
-                        function(res){
+                        function (res) {
                             var data = {};
                             data.imgUrl = (res !== undefined && res.album.image && res.album.image.length > 0) ? res.album.image[3]['#text'] : '';
                             cb(data)
@@ -144,29 +176,35 @@ var AppRouter = Backbone.Router.extend({
             //loader(false
         }
 
-        showContent(this.albumsList.element);
+        this.showContent(this.albumsList.element);
     },
-    artists: function(){
+    artists: function () {
         //loader(true);
         //$contentWrapper.empty();
-        if(this.artistList === undefined){
+        if (this.artistList === undefined) {
             this.artistList = new ThumbnailList({
                 id: 'artists',
                 type: 'artist',
                 url: global.url + "/artist",
                 defaultImage: 'public/img/artist_default.png',
-                primaryLink: {url:'#artist/{#}', property: ['name']},
-                secondaryLink: {url:'#artist/{#}', property: ['name']},
-                getData: function(index, length, cb){
-                    console.log(index, length, global.artists,global.artists.slice(index, index + length ));
+                primaryLink: {
+                    url: '#artist/{#}',
+                    property: ['name']
+                },
+                secondaryLink: {
+                    url: '#artist/{#}',
+                    property: ['name']
+                },
+                getData: function (index, length, cb) {
+                    console.log(index, length, global.artists, global.artists.slice(index, index + length));
                     var data = global.artists.slice(index, index + length);
 
                     cb(data);
                 },
-                getInfo: function(item, cb){
+                getInfo: function (item, cb) {
 
                     $.get('http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=' + item.name + '&api_key=3560007ae1982c970859a515efeb3174&format=json',
-                        function(res){
+                        function (res) {
                             var data = {};
                             data.imgUrl = (res !== undefined && res.artist.image && res.artist.image.length > 0) ? res.artist.image[3]['#text'] : '';
                             cb(data)
@@ -176,7 +214,7 @@ var AppRouter = Backbone.Router.extend({
             });
         }
 
-        showContent(this.artistList.element);
+        this.showContent(this.artistList.element);
 
         //loader(false);
 
@@ -185,47 +223,47 @@ var AppRouter = Backbone.Router.extend({
     songs: function () {
         //loader(true);
 
-        if(this.songsList === undefined){
+        if (this.songsList === undefined) {
             this.songsList = new SongList({
                 parentElement: document.querySelector('#page-wrapper')
             });
         }
-        showContent(this.songsList.element);
+        this.showContent(this.songsList.element);
 
         //loader(false);
     },
     party: function () {
         //loader(true);
-        if(this.partyRoute === undefined){
+        if (this.partyRoute === undefined) {
             this.partyRoute = new Party({
                 url: global.url
             });
         }
-        showContent(this.partyRoute.element);
+        this.showContent(this.partyRoute.element);
         //loader(false);
     },
     settings: function () {
         //loader(true);
-        if(this.settingsRoute === undefined){
+        if (this.settingsRoute === undefined) {
             this.settingsRoute = new Settings({
                 url: global.url
             });
         }
-        showContent(this.settingsRoute.element);
+        this.showContent(this.settingsRoute.element);
         //loader(false);
     },
     queue: function () {
 
         //loader(true);
         //$contentWrapper.empty();
-        if(this.songQueue === undefined){
+        if (this.songQueue === undefined) {
             this.songQueue = new SongQueue({
-                queue: songQueue.getSongs(),
-                current:currentSong
+                queue: appPlayer.getSongQueue(),
+                current: appPlayer.currentSong
             });
         }
 
-        showContent(this.songQueue.element);
+        this.showContent(this.songQueue.element);
         //loader(false);
     }
 });

@@ -13,20 +13,25 @@ function SongList(options) {
             },
             {
                 name: 'Title',
-                property: 'title'
+                property: 'title',
+                style: 'min-width:200px; max-width: 200px; width: 200px;'
             },
             {
                 name: 'Artist',
-                property: 'artist'
+                property: 'artist',
+                style: 'min-width:200px; max-width: 200px; width: 200px;'
             },
             {
                 name: 'Album',
-                property: 'album'
-            },
-            {
-                name: 'File',
-                property: 'file'
+                property: 'album',
+                style: 'min-width:200px; max-width: 200px; width: 200px;'
             }
+//            ,
+//            {
+//                name: 'File',
+//                property: 'file',
+//                style: 'min-width:200px; max-width: 200px; width: 200px;'
+//            }
         ],
         length: global.songs.length,
         parentElement: this.options.parentElement,
