@@ -39,7 +39,7 @@ tr:hover .song-controls > * {
 }
 
 .navbar-header {
-    width: 210px;
+    width: 225px;
 }
 
 #player-wrapper #player {
@@ -153,6 +153,9 @@ nav.navbar a {
     display: inline-block;
     vertical-align: middle;
 }
+.nav li :hover, .nav li :active, .nav li a :hover, .nav li a :active {
+    background-color: transparent;
+}
 
 .container-fluid {
     padding-left: 0;
@@ -185,4 +188,39 @@ body.fullScreen nav {
 #url{
     background-color: black;
     color: white;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: black;
+    color: white;
+}
+
+
+/*sidepanel*/
+#page-wrapper.side #side-panel{
+    width: 90%;
+}
+
+#page-wrapper.side #side-panel-overlay{
+    width: 100%;
+}
+
+#side-panel, #side-panel-overlay{
+    z-index: 1030;
+}
+
+#side-panel {
+    background-color: black;
+    padding-top: 0;
+}
+#side-panel-content {
+    
+}
+
+#side-panel-controls{
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }

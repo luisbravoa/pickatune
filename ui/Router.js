@@ -44,6 +44,13 @@ var AppRouter = Backbone.Router.extend({
                 this.songQueue.addSong(song);
             }
         }.bind(this));
+
+        $('#side-panel-overlay, #side-panel-close').click(function(){
+            this.hideSidePanel();
+            window.history.back();
+        }.bind(this));
+
+        $(window).resize(this.setSidePanelWidth.bind(this));
     },
     routes: {
         "songs": 'songs',
@@ -54,6 +61,21 @@ var AppRouter = Backbone.Router.extend({
         "settings": 'settings',
         "artist/:artist": 'detail',
         "album/:artist/:album": 'detail'
+    },
+    hideSidePanel: function () {
+        $('#page-wrapper').removeClass('side');
+    },
+    setSidePanelWidth: function () {
+        var $pageWrapper = $('#page-wrapper');
+        var width = $pageWrapper.width();
+        $('#side-panel-content').width(width);
+    },
+    showSidePanel: function () {
+        var $pageWrapper = $('#page-wrapper');
+
+        this.setSidePanelWidth();
+
+        $pageWrapper.addClass('side');
     },
     showContent: function (element) {
 
@@ -82,7 +104,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     detail: function (artist, album) {
-        console.log(artist, album)
+        //        console.log(artist, album)
 
         var data = {};
 
@@ -102,6 +124,11 @@ var AppRouter = Backbone.Router.extend({
                 return (song.artist === artist && song.album === album);
             });
 
+            data.albums[album].forEach(function (song) {
+
+                song.play = getPlay(song);
+                
+            });
 
 
         } else if (artist !== null) {
@@ -130,18 +157,20 @@ var AppRouter = Backbone.Router.extend({
         if (this.detailList) {
             this.detailList.destroy();
         }
-        //loader(true);
+
         this.detailList = new DetailList({
             data: data,
             parentElement: document.querySelector('#page-wrapper')
         });
-        //loader(false);
 
-        this.showContent(this.detailList.element);
+
+        this.showSidePanel();
+        $('#side-panel-content').append(this.detailList.element);
+        //        this.showContent(this.detailList.element);
     },
     albums: function () {
         if (!this.albumsList) {
-            //loader(true);
+
             this.albumsList = new ThumbnailList({
                 id: 'albums',
                 type: 'album',
@@ -157,7 +186,6 @@ var AppRouter = Backbone.Router.extend({
                 },
                 getData: function (index, length, cb) {
                     var data = global.albums.slice(index, index + length);
-
                     cb(data);
                 },
                 getInfo: function (item, cb) {
@@ -168,19 +196,15 @@ var AppRouter = Backbone.Router.extend({
                             cb(data)
                         });
 
-
-
                 },
                 parentElement: document.querySelector('#page-wrapper')
             });
-            //loader(false
         }
 
         this.showContent(this.albumsList.element);
     },
     artists: function () {
-        //loader(true);
-        //$contentWrapper.empty();
+
         if (this.artistList === undefined) {
             this.artistList = new ThumbnailList({
                 id: 'artists',
@@ -196,7 +220,6 @@ var AppRouter = Backbone.Router.extend({
                     property: ['name']
                 },
                 getData: function (index, length, cb) {
-                    console.log(index, length, global.artists, global.artists.slice(index, index + length));
                     var data = global.artists.slice(index, index + length);
 
                     cb(data);
@@ -216,12 +239,8 @@ var AppRouter = Backbone.Router.extend({
 
         this.showContent(this.artistList.element);
 
-        //loader(false);
-
-
     },
     songs: function () {
-        //loader(true);
 
         if (this.songsList === undefined) {
             this.songsList = new SongList({
@@ -230,32 +249,25 @@ var AppRouter = Backbone.Router.extend({
         }
         this.showContent(this.songsList.element);
 
-        //loader(false);
     },
     party: function () {
-        //loader(true);
         if (this.partyRoute === undefined) {
             this.partyRoute = new Party({
                 url: global.url
             });
         }
         this.showContent(this.partyRoute.element);
-        //loader(false);
     },
     settings: function () {
-        //loader(true);
         if (this.settingsRoute === undefined) {
             this.settingsRoute = new Settings({
                 url: global.url
             });
         }
         this.showContent(this.settingsRoute.element);
-        //loader(false);
     },
     queue: function () {
 
-        //loader(true);
-        //$contentWrapper.empty();
         if (this.songQueue === undefined) {
             this.songQueue = new SongQueue({
                 queue: appPlayer.getSongQueue(),
@@ -264,6 +276,5 @@ var AppRouter = Backbone.Router.extend({
         }
 
         this.showContent(this.songQueue.element);
-        //loader(false);
     }
 });

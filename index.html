@@ -14,11 +14,11 @@
     <!-- Bootstrap Core CSS -->
     <link href="public/style/bootstrap.min.css" rel="stylesheet">
 
-    <link href="public/style/app.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="public/style/table.css">
     <link rel="stylesheet" type="text/css" href="public/style/common.css">
     <link rel="stylesheet" type="text/css" href="public/style/ui.css">
     <link rel="stylesheet" type="text/css" href="public/style/player.css">
+    <link href="public/style/app.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="public/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -113,6 +113,16 @@
 
         <div id="page-wrapper">
 
+            <div id="side-panel-overlay">
+            </div>
+            <div id="side-panel">
+                <div id="side-panel-content">
+                <div id="side-panel-controls">
+                    <a href="#" id="side-panel-close"><i class="fa fa-2x fa-times"></i></a>
+                </div>
+                </div>
+            </div>
+
             <div id="content-wrapper" class="">
 
             </div>
@@ -157,7 +167,6 @@
     <script src="public/js/lib/bootstrap.min.js"></script>
 
     <script>
-        
         var nw = require('nw.gui');
         var win = nw.Window.get();
         win.isMaximized = false;
@@ -165,7 +174,7 @@
         document.getElementById('debug').onclick = function () {
             win.showDevTools();
         };
-        
+
         // Expand
         document.getElementById('expand').onclick = function () {
             win.enterFullscreen();
@@ -204,8 +213,8 @@
         win.on('unmaximize', function () {
             win.isMaximized = false;
         });
-        
-        $('#qr-wrapper').click(function(){
+
+        $('#qr-wrapper').click(function () {
             nw.Shell.openExternal(global.url);
         });
     </script>

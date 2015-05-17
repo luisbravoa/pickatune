@@ -47,14 +47,14 @@ DetailList.prototype.html =
     '{{#each albums}}' +
     '<h2>{{@key}}</h2>' +
     '<div class="TableLite">' +
-    '<table style="width:100%">' +
+    '<table style="width:calc(100% - 40px)">' +
     '<thead>' +
     '<th style="min-width: 70px; max-width: 70px; width: 70px;"></th>' +
     '<th style="min-width: 70px; max-width: 70px; width: 70px;">#</th>' +
     '<th>Title</th>' +
     '<th>Album</th>' +
     '<th>Artist</th>' +
-    '<th>file</th>' +
+//    '<th>file</th>' +
 
     '</thead>' +
     '{{#each this}}' +
@@ -64,7 +64,7 @@ DetailList.prototype.html =
     '<td>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</td>' +
     '<td>{{#if album}}{{album}}{{else}}(Unknown){{/if}}</td>' +
     '<td>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</td>' +
-    '<td>{{file}}</td>' +
+//    '<td>{{file}}</td>' +
     '</tr>' +
     '{{/each}}' +
 

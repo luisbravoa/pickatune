@@ -1,18 +1,18 @@
 var qrcode = document.querySelector('#qr');
 var $contentWrapper = $('#content-wrapper');
 var contentWrapper = document.querySelector('#content-wrapper');
-
 var appPlayer = new AppPlayer();
 
 global.router = new AppRouter();
 
-Backbone.history.start();
-document.querySelector('#player-wrapper').appendChild(appPlayer.player.element);
-
-$('#qr').attr('src', global.url + '/qr');
-
 $(function () {
     global.router.loader(true);
+
+
+    Backbone.history.start();
+    document.querySelector('#player-wrapper').appendChild(appPlayer.player.element);
+
+    $('#qr').attr('src', global.url + '/qr');
 });
 
 global.eventBus.on('song:play', function (song) {

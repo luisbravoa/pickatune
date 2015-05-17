@@ -36,7 +36,7 @@ module.exports = {
                             var id = global.songs[i].id;
                         
                         for(key in data){
-                            console.log(key, data[key], data[key] !== undefined);
+//                            console.log(key, data[key], data[key] !== undefined);
                             if(data[key] !== undefined && data[key] !== ''){
                                 global.songs[i][key] = data[key];
                             }    

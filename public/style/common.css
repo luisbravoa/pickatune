@@ -115,3 +115,55 @@ body{
 .list-item.album .list-item-link-container{
     height: 70px;
 }
+
+
+
+#side-panel-overlay{
+    background-color: #000000;
+    opacity: .7;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+}
+
+#side-panel{
+    padding-top: 50px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    background-color: #222222;
+    width: 0;
+    overflow: hidden;
+    -webkit-transition: width 5s ease-in-out;
+    -moz-transition: width .5s ease-in-out;
+    -o-transition: width .5s ease-in-out;
+    transition: width .5s ease-in-out;
+
+    color: #ffffff;
+    overflow-y: auto;
+
+}
+#side-panel-content{
+    padding-left: 15px;
+    padding-right: 15px;
+    min-width: 300px;
+    overflow-y: auto;
+}
+
+#side-panel-actions{
+    padding-top: 15px;
+    text-align: right;
+}
+#side-panel-close i {
+    color:#ffffff;
+}
+#side-panel-buttons{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
