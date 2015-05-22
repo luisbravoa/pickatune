@@ -1,7 +1,11 @@
 var qrcode = document.querySelector('#qr');
 var $contentWrapper = $('#content-wrapper');
 var contentWrapper = document.querySelector('#content-wrapper');
-var appPlayer = new AppPlayer();
+global.appPlayer = new AppPlayer({
+    onChange: function () {
+        global.eventBus.emit('player:change');
+    }
+});
 
 global.router = new AppRouter();
 
@@ -10,22 +14,22 @@ $(function () {
 
 
     Backbone.history.start();
-    document.querySelector('#player-wrapper').appendChild(appPlayer.player.element);
+    document.querySelector('#player-wrapper').appendChild(global.appPlayer.player.element);
 
-    $('#qr').attr('src', global.url + '/qr');
+    
 });
 
 global.eventBus.on('song:play', function (song) {
-    appPlayer.play(song);
+    global.appPlayer.play(song);
 });
 
 global.eventBus.on('song:add', function (song) {
 
-    if (appPlayer.isPlaying()) {
+    if (global.appPlayer.isPlaying()) {
         global.eventBus.emit('song:play', song)
     } else {
         // add to queue
-        appPlayer.addToQueue(song);
+        global.appPlayer.addToQueue(song);
         global.eventBus.emit('song:added', song);
     }
 
@@ -34,6 +38,9 @@ global.eventBus.on('song:add', function (song) {
 global.eventBus.on('server:ready', function () {
     console.log('server:ready');
     $('#url').text(global.url);
+//    requestAnimationFrame(function () {
+        $('#qr').attr('src', global.url + '/qr');
+//    });
 });
 
 global.eventBus.on('load:songs', function (number, total) {
@@ -50,7 +57,7 @@ global.eventBus.on('config:musicFolder', function (musicFolder) {
     requestAnimationFrame(function () {
         global.db.setConfig('musicFolder', musicFolder);
         global.db.deleteAll();
-        appPlayer.clear();
+        global.appPlayer.clear();
         global.eventBus.emit('songs:reload', musicFolder);
 
     });

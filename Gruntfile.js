@@ -1,5 +1,8 @@
 module.exports = function (grunt) {
-    var buildPlatforms = parseBuildPlatforms(grunt.option('platforms'));
+    
+    var platforms = parsePlatforms(grunt.option('platforms'));
+
+    console.log('platforms >> ', platforms);
 
     grunt.initConfig({
         nodewebkit: {
@@ -7,11 +10,7 @@ module.exports = function (grunt) {
                 version: '0.12.0',
                 build_dir: './build', // Where the build version of my node-webkit app is saved
                 //mac_icns: './images/popcorntime.icns', // Path to the Mac icon file
-                mac: buildPlatforms.mac,
-                win32: buildPlatforms.win32,
-                win64: buildPlatforms.win64,
-                linux32: buildPlatforms.linux32,
-                linux64: buildPlatforms.linux64
+                platforms: platforms
             },
             src: ['./misc/**', './public/**', './models/**', './public/**', './js/**', './ui/**', './routes/**', './node_modules/**', '!./node_modules/grunt*/**', './index.html', './app.js', './server.js', './package.json', './README.md'] // Your node-webkit app './**/*'
         },
@@ -19,15 +18,19 @@ module.exports = function (grunt) {
             main: {
                 files: [
                     {
-                    src: 'lib/ffmpegsumo/win/ffmpegsumo.dll',
+                    src: 'lib/ffmpegsumo/win32/ffmpegsumo.dll',
                     dest: 'build/prototype/win32/ffmpegsumo.dll'
                     },
                     {
-                    src: 'lib/ffmpegsumo/osx/ffmpegsumo.so',
+                    src: 'lib/ffmpegsumo/win64/ffmpegsumo.dll',
+                    dest: 'build/prototype/win64/ffmpegsumo.dll'
+                    },
+                    {
+                    src: 'lib/ffmpegsumo/osx32/ffmpegsumo.so',
                     dest: 'build/prototype/osx32/prototype.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
                     },
                     {
-                    src: 'lib/ffmpegsumo/osx/ffmpegsumo.so',
+                    src: 'lib/ffmpegsumo/osx64/ffmpegsumo.so',
                     dest: 'build/prototype/osx64/prototype.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
                     }
                 ]
@@ -41,24 +44,17 @@ module.exports = function (grunt) {
 
 };
 
-var parseBuildPlatforms = function (argumentPlatform) {
-    // this will make it build no platform when the platform option is specified
-    // without a value which makes argumentPlatform into a boolean
-    var inputPlatforms = argumentPlatform || process.platform + ";" + process.arch;
-
-    // Do some scrubbing to make it easier to match in the regexes bellow
-    inputPlatforms = inputPlatforms.replace("darwin", "mac");
-    inputPlatforms = inputPlatforms.replace(/;ia|;x|;arm/, "");
-
-    var buildAll = /^all$/.test(inputPlatforms);
-
-    var buildPlatforms = {
-        mac: /mac/.test(inputPlatforms) || buildAll,
-        win32: /win32/.test(inputPlatforms) || buildAll,
-        win64: /win64/.test(inputPlatforms) || buildAll,
-        linux32: /linux32/.test(inputPlatforms) || buildAll,
-        linux64: /linux64/.test(inputPlatforms) || buildAll
-    };
-
-    return buildPlatforms;
+var parsePlatforms = function (argumentPlatform) {
+    
+    var allPlatforms = ['win32', 'win64', 'osx32', 'osx64'];
+    
+    if(argumentPlatform === undefined){
+        return ['win32', 'win64', 'osx32', 'osx64'];
+    }else{
+        var platforms = [];
+        argumentPlatform.split(',').forEach(function(platform){
+            platforms.push(platform);
+        });
+        return platforms
+    }
 }

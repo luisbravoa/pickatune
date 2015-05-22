@@ -30,13 +30,15 @@ var AppRouter = Backbone.Router.extend({
             $contentWrapper.empty();
         }.bind(this));
 
-        global.eventBus.on('song:play', function (song) {
-            //console.log('router play');
+        global.eventBus.on('player:change', function () {
+            console.log('player:change', global.appPlayer, global.appPlayer.currentSong);
+            
             if (this.songQueue) {
-                this.songQueue.setCurrent(song);
+                this.songQueue.setCurrent(global.appPlayer.currentSong);
+                
             }
         }.bind(this));
-
+        
         global.eventBus.on('song:added', function (song) {
             //console.log('router add');
 
@@ -270,8 +272,8 @@ var AppRouter = Backbone.Router.extend({
 
         if (this.songQueue === undefined) {
             this.songQueue = new SongQueue({
-                queue: appPlayer.getSongQueue(),
-                current: appPlayer.currentSong
+                queue: global.appPlayer.getSongQueue(),
+                current: global.appPlayer.currentSong
             });
         }
 
