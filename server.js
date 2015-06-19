@@ -7,6 +7,8 @@ var http = require('http'),
     _ = require('underscore'),
     when = require('when');
 
+var Discover = require('./misc/discover');
+new Discover();
 
 global.models = require(path.join(process.cwd(), 'models', 'index.js')).models;
 
@@ -43,12 +45,12 @@ function reload() {
         .then(function (musicFolder) {
 
 
-            
+
             if (musicFolder !== undefined && musicFolder !== 'undefined') {
                 console.log('refresssssssssssssssssssh', musicFolder);
                 routes.Main.loadfiles(musicFolder);
                 app.use('/music', express.static(musicFolder));
-            }else{
+            } else {
                 global.eventBus.emit('reload:error');
             }
             console.log('>>>>>>>>>>. ', musicFolder);
@@ -78,6 +80,11 @@ http.get(options, function (res) {
 
     app.use(express.static(path.join(process.cwd(), 'public')));
 
+    app.use(function (req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
 
 
 
@@ -102,7 +109,7 @@ http.get(options, function (res) {
 
     http.createServer(app).listen(app.get('port'), function (err) {
         console.log('server created');
-        setTimeout(function(){
+        setTimeout(function () {
             global.eventBus.emit('server:ready');
         }, 1000);
 

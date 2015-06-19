@@ -1,0 +1,23 @@
+.SongList {}
+
+.SongList-content{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.SongList-content li {
+    height: 40px;
+    list-style: none;
+    border-bottom: 1px solid #222222;
+}
+
+.SongList-content li h2 {
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.SongList-content li p {
+    font-size: 12px;
+}
