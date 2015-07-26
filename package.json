@@ -1,17 +1,16 @@
 {
   "name": "prototype",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "index.html",
   "window": {
     "title": "Prototype",
-    "frame": true,
+    "frame": false,
     "resizable": true,
     "width": 1024,
     "height": 700,
     "min_width": 1024,
     "min_height": 700,
-    "toolbar": false,
-      "frame": false
+    "toolbar": false
   },
   "dependencies": {
     "express": "^4.12.3",
@@ -24,6 +23,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.5",
+    "grunt-bump": "^0.3.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-node-webkit-builder": "^1.0.2"
   }
