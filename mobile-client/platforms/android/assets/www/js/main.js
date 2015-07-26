@@ -146,7 +146,7 @@ var AppRouter = Backbone.Router.extend({
     },
 
     playSong: function (song) {
-        $.get(this.baseUrl + '/song/play/' + song.id)
+        $.get(this.baseUrl + '/songs/play/' + song.id)
             .done(function () {});
     },
     playSongInDevice: function (song) {
@@ -154,7 +154,7 @@ var AppRouter = Backbone.Router.extend({
         this.$player[0].play();
     },
     addSong: function (song) {
-        $.get('/song/add/' + song.id)
+        $.get('/songs/add/' + song.id)
             .done(function () {});
     },
     showDetail: function () {
@@ -206,7 +206,7 @@ var AppRouter = Backbone.Router.extend({
             this.showContent(this.songContainer);
 
             $.ajax({
-                    url: this.baseUrl + "/song/length"
+                    url: this.baseUrl + "/songs/length"
                 })
                 .done(function (data) {
                     this.songsLength = data.length;
@@ -240,7 +240,7 @@ var AppRouter = Backbone.Router.extend({
             delete this._songXHR;
         }
         
-        this._songXHR = $.get(this.baseUrl + '/song/index/' + indexes.join(','))
+        this._songXHR = $.get(this.baseUrl + '/songs/index/' + indexes.join(','))
             .done(function (data) {
 
 
@@ -248,7 +248,7 @@ var AppRouter = Backbone.Router.extend({
             });
     },
     getSong: function (id, cb) {
-        $.get(this.baseUrl + '/song/' + id)
+        $.get(this.baseUrl + '/songs/' + id)
             .done(function (song) {
 
                 cb(song);

@@ -22,7 +22,7 @@ body{
     color: #ffffff;
 }
 
-#songs, #artists, #albums{
+#songs, #artists, #albums, #detailList{
     height: 100%;
     overflow: scroll;
 }

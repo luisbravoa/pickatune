@@ -23,12 +23,13 @@ exports.listPaginated = function (req, res) {
     var index = parseInt(req.param("index"));
     var length = parseInt(req.param("length"));
 
-    console.log(index, index + length);
-
-    debugger;
     var response = {
         length: global.artists.length,
         data: global.artists.slice(index, index + length)
     };
     res.send(response);
 };
+
+
+
+

@@ -7,13 +7,9 @@ function DetailList(options) {
 
     $(this.element).append(html);
 
-    //this.element.appendChild(this.table.element);
-
     $(this.element).delegate('.playButton', 'click', function (e) {
         e.preventDefault();
         var id = $(this).attr('data-id');
-
-        //debugger;
 
         var song = global.models.Song.getByFile(id);
 
@@ -30,16 +26,6 @@ function DetailList(options) {
             global.eventBus.emit('song:add', song);
         }
     });
-    //
-    //$('#song-list tr').dblclick(function (e) {
-    //    e.preventDefault();
-    //    var id = $(this).find('.playButton').attr('data-id');
-    //    var song = global.models.Song.getByFile(id);
-    //
-    //    if(song){
-    //        global.eventBus.emit('song:play', song);
-    //    }
-    //});
 }
 DetailList.prototype.html =
 
@@ -54,7 +40,6 @@ DetailList.prototype.html =
     '<th>Title</th>' +
     '<th>Album</th>' +
     '<th>Artist</th>' +
-//    '<th>file</th>' +
 
     '</thead>' +
     '{{#each this}}' +
@@ -64,7 +49,6 @@ DetailList.prototype.html =
     '<td>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</td>' +
     '<td>{{#if album}}{{album}}{{else}}(Unknown){{/if}}</td>' +
     '<td>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</td>' +
-//    '<td>{{file}}</td>' +
     '</tr>' +
     '{{/each}}' +
 

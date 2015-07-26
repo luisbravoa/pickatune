@@ -1,5 +1,9 @@
 "use strict";
 
+
+var EventEmitter = require("events").EventEmitter;
+global.eventBus = new EventEmitter();
+
 var http = require('http'),
     path = require('path'),
     express = require('express'),
@@ -21,7 +25,7 @@ global.baseDir = process.cwd();
 
 var routes = {
     Main: require('./routes/Main'),
-    Index: require('./routes/Index'),
+    Index: require('./routes/index'),
     Songs: require('./routes/Songs'),
     Artists: require('./routes/Artists'),
     Albums: require('./routes/Albums')
@@ -36,15 +40,9 @@ try {
     console.log(e)
 }
 
-var EventEmitter = require("events").EventEmitter;
-global.eventBus = new EventEmitter();
-
-
 function reload() {
     global.db.getConfig('musicFolder')
         .then(function (musicFolder) {
-
-
 
             if (musicFolder !== undefined && musicFolder !== 'undefined') {
                 console.log('refresssssssssssssssssssh', musicFolder);
@@ -89,22 +87,28 @@ http.get(options, function (res) {
 
 
     app.get('/qr', routes.Index.qr);
-    app.get('/song/length', routes.Songs.length);
-    app.get('/song/index/:indexes', routes.Songs.getSongByIndex);
-    app.get('/song/play/:id', routes.Songs.play);
-    app.get('/song/add/:id', routes.Songs.add);
+    app.get('/songs/length', routes.Songs.length);
+    app.get('/songs/index/:indexes', routes.Songs.getSongByIndex);
+    app.get('/songs/play/:id', routes.Songs.play);
+    app.get('/songs/add/:id', routes.Songs.add);
     // Songs
     app.get('/song', routes.Songs.list);
-    app.get('/song/:id', routes.Songs.getById);
+    app.get('/songs/:id', routes.Songs.getById);
 
 
     // Artists
-    app.get('/artist', routes.Artists.list);
-    app.get('/artist/:index/:length', routes.Artists.listPaginated);
+    app.get('/artists', routes.Artists.list);
+    app.get('/artists/:artist/albums/:album/songs', routes.Songs.getSongsByAlbum);
+    app.get('/artists/:name/songs', routes.Songs.getSongsByArtist);
+
+    app.get('/artists/:index/:length', routes.Artists.listPaginated);
+
+
 
     // Albums
-    app.get('/album', routes.Albums.list);
-    app.get('/album/:index/:length', routes.Albums.listPaginated);
+    app.get('/albums', routes.Albums.list);
+
+    app.get('/albums/:index/:length', routes.Albums.listPaginated);
 
 
     http.createServer(app).listen(app.get('port'), function (err) {

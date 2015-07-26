@@ -1,5 +1,6 @@
 body {
     background-color: #000;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
 }
 
 #page-wrapper {
@@ -169,6 +170,7 @@ side {
     width: 225px;
     bottom: 0;
     background-color: #222;
+    z-index: 1000;
 }
 /*        fullscreen*/
 

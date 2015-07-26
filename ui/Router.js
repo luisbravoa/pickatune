@@ -32,13 +32,13 @@ var AppRouter = Backbone.Router.extend({
 
         global.eventBus.on('player:change', function () {
             console.log('player:change', global.appPlayer, global.appPlayer.currentSong);
-            
+
             if (this.songQueue) {
                 this.songQueue.setCurrent(global.appPlayer.currentSong);
-                
+
             }
         }.bind(this));
-        
+
         global.eventBus.on('song:added', function (song) {
             //console.log('router add');
 
@@ -47,7 +47,7 @@ var AppRouter = Backbone.Router.extend({
             }
         }.bind(this));
 
-        $('#side-panel-overlay, #side-panel-close').click(function(){
+        $('#side-panel-overlay, #side-panel-close').click(function () {
             this.hideSidePanel();
             window.history.back();
         }.bind(this));
@@ -129,7 +129,7 @@ var AppRouter = Backbone.Router.extend({
             data.albums[album].forEach(function (song) {
 
                 song.play = getPlay(song);
-                
+
             });
 
 
@@ -144,6 +144,7 @@ var AppRouter = Backbone.Router.extend({
             songs.forEach(function (song) {
 
                 song.play = getPlay(song);
+
                 if (albums[song.album] === undefined) {
                     albums[song.album] = [song];
                 } else {
@@ -168,8 +169,8 @@ var AppRouter = Backbone.Router.extend({
 
         this.showSidePanel();
         $('#side-panel-content').append(this.detailList.element);
-        //        this.showContent(this.detailList.element);
     },
+
     albums: function () {
         if (!this.albumsList) {
 

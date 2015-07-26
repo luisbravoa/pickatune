@@ -1,13 +1,10 @@
 function SongList(options) {
     this.options = options;
-    this.rowHeight = 40;
+    this.rowHeight = 37;
 
     this.getData = this.options.getData;
 
     this.element = $.parseHTML(this.html)[0];
-
-    //console.log(this.element);
-
 
     // add filler rows
     var rows = '';
@@ -23,11 +20,11 @@ function SongList(options) {
 
     $(this.options.scrollableElement).scroll(function (e) {
         if (this.timeout) {
-            //console.log('return');
             cancelAnimationFrame(this.timeout);
             delete this.timeout;
         }
         this.timeout = requestAnimationFrame(this.onScroll.bind(this));
+        this.onScroll();
     }.bind(this));
 
 

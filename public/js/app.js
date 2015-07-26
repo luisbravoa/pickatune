@@ -2,11 +2,44 @@ var AppRouter = Backbone.Router.extend({
 
     routes: {
         "songs": 'showSongs',
+        "album/:artist/:album": 'detail',
+        "artist/:artist": 'detail',
         "albums": 'albums',
         "artists": 'artists',
-        "settings": 'settings',
-        "artist/:artist": 'detail',
-        "album/:artist/:album": 'detail'
+        "settings": 'settings'
+    },
+
+    getDataForDetails: function (artist, album, cb) {
+        var url = this.baseUrl + '/artists/' + encodeURI(artist);
+        if (album) {
+            url += '/albums/' + encodeURI(album);
+        }
+        url += '/songs';
+        $.get(url, cb.bind(this));
+    },
+
+    detail: function (artist, album) {
+
+        this.getDataForDetails(artist, album, function (data) {
+            if (this.detailList) {
+                this.detailList.destroy();
+            }
+
+            data.artist = artist;
+
+            this.detailList = new DetailList({
+
+                data: data,
+                parentElement: document.querySelector('#content-wrapper')
+            });
+            this.showContent(this.detailList.element);
+
+            $(this.detailList.element).find('.DetailList-content li').click(function (e) {
+                this.selectedSongId = (e.target.getAttribute('data-id') !== null) ? e.target.getAttribute('data-id') : e.target.parentNode.getAttribute('data-id');
+                this.showDetail();
+            }.bind(this));
+        });
+
     },
 
     showContent: function (element) {
@@ -38,7 +71,7 @@ var AppRouter = Backbone.Router.extend({
                 },
                 perPage: 50,
                 getData: function (index, length, cb) {
-                    $.get(this.baseUrl + '/artist/' + index + '/' + length, function (data) {
+                    $.get(this.baseUrl + '/artists/' + index + '/' + length, function (data) {
                         cb(data.data);
                     });
                 }.bind(this),
@@ -81,7 +114,7 @@ var AppRouter = Backbone.Router.extend({
                 perPage: 50,
                 getData: function (index, length, cb) {
                     //                    console.log(index, length);
-                    $.get(this.baseUrl + '/album/' + index + '/' + length, function (data) {
+                    $.get(this.baseUrl + '/albums/' + index + '/' + length, function (data) {
                         cb(data.data);
                     });
                 }.bind(this),
@@ -103,14 +136,12 @@ var AppRouter = Backbone.Router.extend({
 
         }
 
-        console.log(this.albumList.element);
         this.showContent(this.albumList.element);
     },
 
     initialize: function (options) {
-                
-        this.baseUrl = (options && options.baseUrl)? options.baseUrl : '';
 
+        this.baseUrl = (options && options.baseUrl) ? options.baseUrl : '';
         this.$pageWrapper = $('.page-wrapper');
         this.$contentWrapper = $('.content-wrapper');
         this.$playButton = $('#play');
@@ -143,21 +174,21 @@ var AppRouter = Backbone.Router.extend({
         this.$closeSideButton.click(function () {
             this.hideSidePanel();
         }.bind(this));
-
-        //$('.nav.navbar-nav a').click(this.collapseNav.bind(this));
     },
 
     playSong: function (song) {
-        $.get(this.baseUrl + '/song/play/' + song.id)
-            .done(function () {});
+        $.get(this.baseUrl + '/songs/play/' + song.id)
+            .done(function () {
+            });
     },
     playSongInDevice: function (song) {
         this.$player.attr('src', this.baseUrl + '/music' + song.url);
         this.$player[0].play();
     },
     addSong: function (song) {
-        $.get('/song/add/' + song.id)
-            .done(function () {});
+        $.get('/songs/add/' + song.id)
+            .done(function () {
+            });
     },
     showDetail: function () {
 
@@ -199,17 +230,12 @@ var AppRouter = Backbone.Router.extend({
         $('.page-wrapper').off("swiperight", this.swipeHandler);
     },
     showSongs: function (data) {
-
-        //        console.log(this.baseUrl);
-
+        console.log('showsongs')
         if (!this.songsList) {
-
             this.songContainer = $.parseHTML('<div id="songs"></div>')[0];
-            this.showContent(this.songContainer);
-
             $.ajax({
-                    url: this.baseUrl + "/song/length"
-                })
+                url: this.baseUrl + "/songs/length"
+            })
                 .done(function (data) {
                     this.songsLength = data.length;
                     this.songsList = new SongList({
@@ -222,16 +248,13 @@ var AppRouter = Backbone.Router.extend({
                     this.songContainer.appendChild(this.songsList.element);
 
                     $('.SongList-content').delegate('li', 'click', function (e) {
-                        //                        console.log('alo', e.target.getAttribute('data-id'))
-                        e.preventDefault();
                         this.selectedSongId = (e.target.getAttribute('data-id') !== null) ? e.target.getAttribute('data-id') : e.target.parentNode.getAttribute('data-id');
                         this.showDetail();
                     }.bind(this));
                 }.bind(this));
-        } else {
-            this.showContent(this.songContainer);
         }
 
+        this.showContent(this.songContainer);
 
     },
     getData: function (indexes, cb) {
@@ -242,7 +265,7 @@ var AppRouter = Backbone.Router.extend({
             delete this._songXHR;
         }
 
-        this._songXHR = $.get(this.baseUrl + '/song/index/' + indexes.join(','))
+        this._songXHR = $.get(this.baseUrl + '/songs/index/' + indexes.join(','))
             .done(function (data) {
 
 
@@ -250,7 +273,7 @@ var AppRouter = Backbone.Router.extend({
             });
     },
     getSong: function (id, cb) {
-        $.get(this.baseUrl + '/song/' + id)
+        $.get(this.baseUrl + '/songs/' + id)
             .done(function (song) {
 
                 cb(song);

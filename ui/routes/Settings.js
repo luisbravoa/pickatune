@@ -4,14 +4,19 @@ function Settings(options) {
     console.log(options);
 
     this.element = parse(template(options));
-    //this.options.parentElement.appendChild(this.element);
 
-    requestAnimationFrame(function(){
-
-        $('#settings-save').click(function(e){
+    requestAnimationFrame(function () {
+        global.db.getConfig('musicFolder')
+            .then(function (musicFolder) {
+                if(musicFolder!== undefined){
+                    console.log(musicFolder);
+                    $('#musicFolder').attr('filename', musicFolder);
+                }
+            });
+        $('#settings-save').click(function (e) {
             var path = $('#musicFolder').val();
-            if(path !== undefined && path !== ''){
-                
+            if (path !== undefined && path !== '') {
+
                 global.eventBus.emit('config:musicFolder', path);
             }
         });
@@ -20,14 +25,17 @@ function Settings(options) {
 
 }
 Settings.prototype.html =
-    '<div id="settings">' +
+    '<div id="settings" class="form-group">' +
     '<div class="col-lg-12"> ' +
-    '<h1>settings</h1> ' +
-    '<p><input id="musicFolder" type="file" webkitdirectory /></p>' +
-    '<p><button id="settings-save">Save</button></p>' +
-    '</div>'+
+    '<h1>Settings</h1> ' +
+    '<div class="form-group"> ' +
+    '<label for="exampleInputFile">Music Folder</label>' +
+    '<input type="file" id="musicFolder" webkitdirectory>' +
+    '<p class="help-block">Choose the folder where your music is in.</p>' +
+    '</div>' +
+    '<p><button id="settings-save" class="btn btn-default">Save</button></p>' +
+    '</div>' +
     '</div>';
-
 
 Settings.prototype.destroy = function () {
     this.element.remove();

@@ -2,10 +2,10 @@ module.exports = function (grunt) {
     
     var platforms = parsePlatforms(grunt.option('platforms'));
 
-    console.log('platforms >> ', platforms);
+    var compressConfig = getCompressConfig(platforms, getCurrentVersion());
 
     grunt.initConfig({
-        nodewebkit: {
+        nwjs: {
             options: {
                 version: '0.12.0',
                 build_dir: './build', // Where the build version of my node-webkit app is saved
@@ -32,24 +32,83 @@ module.exports = function (grunt) {
                     {
                     src: 'lib/ffmpegsumo/osx64/ffmpegsumo.so',
                     dest: 'build/prototype/osx64/prototype.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
+                    },
+                    {
+                    src: 'lib/ffmpegsumo/linux64/libffmpegsumo.so',
+                    dest: 'build/prototype/linux64/libffmpegsumo.so'
+                    },
+                    {
+                    src: 'lib/ffmpegsumo/linux32/libffmpegsumo.so',
+                    dest: 'build/prototype/linux32/libffmpegsumo.so'
                     }
                 ]
             }
-        }
+        },
+        bump: {
+            options: {
+                files: ['package.json'],
+                updateConfigs: [],
+                commit: true,
+                commitMessage: 'Release v%VERSION%',
+                commitFiles: ['package.json'],
+                createTag: true,
+                tagName: 'v%VERSION%',
+                tagMessage: 'Version %VERSION%',
+                push: false,
+                pushTo: 'origin',
+                gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
+                globalReplace: false,
+                prereleaseName: false,
+                regExp: false
+            }
+        },
+        compress: compressConfig
     });
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-node-webkit-builder');
-    grunt.registerTask('nodewkbuild', ['nodewebkit', 'copy']);
+    grunt.loadNpmTasks('grunt-nw-builder');
+    grunt.loadNpmTasks('grunt-bump');
+    grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.registerTask('build', ['nwjs', 'copy']);
 
+    grunt.registerTask('changelog', 'A task that updates the changelog', function() {
+        var version = getCurrentVersion();
+        var header = '##' + version + ' (' + new Date().toDateString() + ')';
+        var changeLogFile = grunt.file.read('changelog.md');
+        var latestHeader = '##latest';
+        var newChangeLog = latestHeader + '\r\n\r\n\r\n';
+
+        if(changeLogFile.indexOf('##'+version) !== -1){
+            grunt.fail.fatal('Version has not been increased.');
+        }
+
+        if(changeLogFile.indexOf(latestHeader) !== 0){
+            grunt.fail.fatal('No latest header');
+        }
+
+        var latestRegExp = new RegExp('^(' + latestHeader + ')((.|\r|\n)*?)(##)', 'gm');
+
+        var match = changeLogFile.match(latestRegExp);
+        if(match === null || match[0].indexOf('*') === -1){
+            grunt.fail.fatal('No new changes');
+        }
+
+        newChangeLog += changeLogFile.replace(latestHeader, header);
+        grunt.log.writeln(newChangeLog);
+        grunt.file.write('changelog.md', newChangeLog);
+
+    });
+
+    function getCurrentVersion() {
+        return grunt.file.readJSON('package.json').version;
+    }
 
 };
-
 var parsePlatforms = function (argumentPlatform) {
-    
-    var allPlatforms = ['win32', 'win64', 'osx32', 'osx64'];
-    
+
+    var allPlatforms = ['win32', 'win64', 'osx32', 'osx64', 'linux32', "linux64"];
+
     if(argumentPlatform === undefined){
-        return ['win32', 'win64', 'osx32', 'osx64'];
+        return allPlatforms;
     }else{
         var platforms = [];
         argumentPlatform.split(',').forEach(function(platform){
@@ -57,4 +116,23 @@ var parsePlatforms = function (argumentPlatform) {
         });
         return platforms
     }
+};
+
+function getCompressConfig(platforms, version){
+    var compressConfig = {};
+
+    platforms.forEach(function(platform){
+        compressConfig[platform] = {
+            options: {
+                archive: function () {
+                    return 'dist/Pickatune-' + platform + '-'+version+'.zip'
+                }
+            },
+            expand: true,
+            cwd: 'build/prototype/' + platform,
+            src: ['**/*']
+        };
+    });
+
+    return compressConfig;
 }

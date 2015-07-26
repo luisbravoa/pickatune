@@ -26,12 +26,6 @@ function SongList(options) {
                 property: 'album',
                 style: 'min-width:200px; max-width: 200px; width: 200px;'
             }
-//            ,
-//            {
-//                name: 'File',
-//                property: 'file',
-//                style: 'min-width:200px; max-width: 200px; width: 200px;'
-//            }
         ],
         length: global.songs.length,
         parentElement: this.options.parentElement,

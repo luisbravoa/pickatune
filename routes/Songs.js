@@ -72,3 +72,46 @@ exports.length = function (req, res) {
 };
 
 
+exports.getSongsByArtist = function (req, res) {
+    var artist = req.params.name;
+    var response = {};
+
+    var songs = global.songs.filter(function (song) {
+        return (song.artist !== undefined && song.artist.toLowerCase() === artist.toLowerCase());
+    });
+
+
+    var albums = {};
+
+    songs.forEach(function (song) {
+        if (albums[song.album] === undefined) {
+            albums[song.album] = [song];
+        } else {
+            albums[song.album].push(song);
+        }
+    });
+    response.albums = albums;
+
+    res.send(response);
+};
+
+
+
+exports.getSongsByAlbum = function (req, res) {
+    var artist = req.params.artist;
+    var album = req.params.album;
+
+    var response = {};
+
+    response.albums = {};
+    response.albums[album] = global.songs.filter(function (song) {
+        return (song.artist.toLocaleLowerCase() === artist.toLocaleLowerCase() && song.album.toLocaleLowerCase() === album.toLocaleLowerCase());
+    });
+
+    //console.log(re)
+
+    //response.albums = albums;
+
+    res.send(response);
+};
+
