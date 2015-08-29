@@ -1,9 +1,9 @@
 {
   "name": "prototype",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "index.html",
   "window": {
-    "title": "Prototype",
+    "title": "Pickatune",
     "frame": false,
     "resizable": true,
     "width": 1024,
@@ -18,6 +18,7 @@
     "ip": "^0.3.2",
     "musicmetadata": "^1.0.1",
     "qr-image": "^3.1.0",
+    "requirejs": "^2.1.20",
     "underscore": "^1.8.3",
     "when": "^3.7.2"
   },
@@ -27,6 +28,7 @@
     "grunt-contrib-compress": "^0.13.0",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-node-webkit-builder": "^1.0.2",
-    "grunt-nw-builder": "^2.0.0"
+    "grunt-nw-builder": "^2.0.0",
+    "grunt-ssh": "^0.12.6"
   }
 }
