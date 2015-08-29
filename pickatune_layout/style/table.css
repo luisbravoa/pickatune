@@ -1,0 +1,38 @@
+.TableLite table {
+	border-width: 0px;
+	border-color: #222;
+	border-collapse: collapse;
+}
+.TableLite table th {
+	background-color: #575757;
+	border-width: 0px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #ccc;
+}
+.TableLite table tr {
+    /*border-bottom: 1px #222 solid;*/
+    height: 45px;
+}
+.TableLite table td  {
+	padding: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+
+.TableLite-header{
+    /*position: absolute;*/
+    /*width: calc(100% - 8px);*/
+    /*z-index: 203;*/
+}
+.TableLite-content{
+    /*padding-top: 37px;*/
+}
+
+.TableLite-content:focus {
+    outline: none;
+}

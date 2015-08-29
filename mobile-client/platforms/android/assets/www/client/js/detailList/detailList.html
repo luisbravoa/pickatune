@@ -1,0 +1,14 @@
+<h1>{{artist}}</h1>
+{{#each albums}}
+<h2>{{@key}}</h2>
+<div>
+    <ul class="DetailList-content" >
+        {{#each this}}
+        <li data-id="{{id}}">
+            <h2>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</h2>
+            <p>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</p>
+            </li>
+        {{/each}}
+        </ul>
+    </div>
+{{/each}}

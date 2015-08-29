@@ -1,0 +1,67 @@
+body{
+    /*color del texto*/
+    color: white;
+    background-color: white;
+}
+
+#page-wrapper{
+    /*color de fondo del contenido*/
+    background-color: black;
+}
+
+/*color de botones del player*/
+.player-button{
+    background-color: #DDDDDD;
+    color: black;
+}
+
+/*encabezado de la tabla de la lista de canciones*/
+#song-list table th {
+    background-color: #575757;
+}
+
+/* color de fondo del menu y sidebar*/
+.navbar-inverse, side{
+    background-color: #222;
+}
+
+/* color de text del menu */
+nav.navbar a {
+    color: #9d9d9d;
+}
+/*Menu items hover*/
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: black;
+    color: white;
+}
+
+/* la parte de arriba*/
+header{
+    background-color: black;
+    color: white; /*color del texto e iconos*/
+}
+
+/*color de los botones en la lista de canciones*/
+.song-controls > a {
+    color: white;
+    opacity: 1;
+}
+
+/*scrollbar fondo*/
+::-webkit-scrollbar {
+    background: #0F0F0F;
+}
+
+/*scrollbar */
+::-webkit-scrollbar-thumb {
+    background: #222;
+}
+
+/*Color por defecto*/
+.song-controls > a {
+    color: white;
+}
+/*color en hover*/
+tr:hover .song-controls > a {
+    color: red;
+}

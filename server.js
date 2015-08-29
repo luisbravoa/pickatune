@@ -1,6 +1,4 @@
 "use strict";
-
-
 var EventEmitter = require("events").EventEmitter;
 global.eventBus = new EventEmitter();
 
@@ -19,7 +17,6 @@ global.models = require(path.join(process.cwd(), 'models', 'index.js')).models;
 global.ip = require('ip').address();
 global.url = 'http://' + global.ip + ':2323';
 global.utils = require(path.join(process.cwd(), 'misc', 'utils.js'));
-//global.config = require('./config');
 
 global.baseDir = process.cwd();
 
@@ -41,18 +38,24 @@ try {
 }
 
 function reload() {
-    global.db.getConfig('musicFolder')
-        .then(function (musicFolder) {
 
-            if (musicFolder !== undefined && musicFolder !== 'undefined') {
-                console.log('refresssssssssssssssssssh', musicFolder);
-                routes.Main.loadfiles(musicFolder);
-                app.use('/music', express.static(musicFolder));
-            } else {
-                global.eventBus.emit('reload:error');
-            }
-            console.log('>>>>>>>>>>. ', musicFolder);
-        });
+    try{
+        global.db.getConfig('musicFolder')
+            .then(function (musicFolder) {
+
+                if (musicFolder !== undefined && musicFolder !== 'undefined') {
+                    console.log('refresssssssssssssssssssh', musicFolder);
+                    routes.Main.loadfiles(musicFolder);
+                    app.use('/music', express.static(musicFolder));
+                } else {
+                    global.eventBus.emit('reload:error');
+                }
+                console.log('>>>>>>>>>>. ', musicFolder);
+            });
+    }catch(e){
+        global.eventBus.emit('reload:error');
+    }
+
 
 }
 reload();

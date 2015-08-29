@@ -4,7 +4,32 @@ module.exports = function (grunt) {
 
     var compressConfig = getCompressConfig(platforms, getCurrentVersion());
 
+    var secret = {};
+    try {
+        secret = grunt.file.readJSON('secret.json');
+    } catch (err) {}
+
+    console.log(platforms.map(function(platform){ return "dist/Pickatune-" + platform+ "-<%= pkg.version %>.zip";}));
+
     grunt.initConfig({
+        secret: secret,
+        pkg: grunt.file.readJSON('package.json'),
+        sftp: {
+
+            test: {
+                files: {
+                    "./": platforms.map(function(platform){ return "dist/"+platform+"/Pickatune-" + platform+ "-<%= pkg.version %>.zip";})
+                },
+                options: {
+                    path: '/var/www/pickatune.net/public/dist',
+                    host: '<%= secret.host %>',
+                    username: '<%= secret.username %>',
+                    password: '<%= secret.password %>',
+                    showProgress: true,
+                    srcBasePath: "dist/"
+                }
+            }
+        },
         nwjs: {
             options: {
                 version: '0.12.0',
@@ -68,6 +93,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-nw-builder');
     grunt.loadNpmTasks('grunt-bump');
     grunt.loadNpmTasks('grunt-contrib-compress');
+    grunt.loadNpmTasks('grunt-ssh');
     grunt.registerTask('build', ['nwjs', 'copy']);
 
     grunt.registerTask('changelog', 'A task that updates the changelog', function() {
@@ -125,7 +151,7 @@ function getCompressConfig(platforms, version){
         compressConfig[platform] = {
             options: {
                 archive: function () {
-                    return 'dist/Pickatune-' + platform + '-'+version+'.zip'
+                    return 'dist/' + platform + '/Pickatune-' + platform + '-'+version+'.zip'
                 }
             },
             expand: true,

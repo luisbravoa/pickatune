@@ -1,0 +1,21 @@
+.TableLite table {
+	font-family: verdana,arial,sans-serif;
+	border-width: 0px;
+	border-color: #222;
+	border-collapse: collapse;
+}
+.TableLite table tr {
+    height: 45px;
+}
+.TableLite table td  {
+	padding: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+.TableLite-content:focus {
+    outline: none;
+}

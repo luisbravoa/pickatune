@@ -1,0 +1,1053 @@
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Pickatune</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="style/table.css">
+    <link rel="stylesheet" type="text/css" href="style/common.css">
+    <link rel="stylesheet" type="text/css" href="style/ui.css">
+    <link rel="stylesheet" type="text/css" href="style/player.css">
+    <link href="style/app.css" rel="stylesheet">
+
+    <link href="style.css" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body class="">
+<header>
+    <div id="header-title">Pickatune</div>
+    <div id="header-controls">
+        <div><a href="#" id="debug"><i class="fa fa-fw fa-info-circle"></i></a>
+        </div>
+        <div><a href="#" id="expand"><i class="fa fa-fw fa-expand"></i></a>
+        </div>
+        <div><a href="#" id="minimize"><i class="fa fa-fw fa-minus"></i></a>
+        </div>
+        <div><a href="#" id="maximize"><i class="fa fa-fw fa-square-o"></i></a>
+        </div>
+        <div><a href="#" id="close"><i class="fa fa-fw fa-times"></i></a>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Pickatune</a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-left top-nav">
+        <li>
+            <a href="#songs" data-i18n="Songs">Songs</a>
+        </li>
+        <li>
+            <a href="#artists" data-i18n="Artists">Artists</a>
+        </li>
+        <li>
+            <a href="#albums" data-i18n="Albums">Albums</a>
+        </li>
+        <li>
+            <a href="#queue" data-i18n="Queue">Queue</a>
+        </li>
+        <li>
+            <a href="#settings"><i class="fa fa-fw fa-cog"></i> <span data-i18n="Settings">Settings</span></a>
+        </li>
+    </ul>
+    <!-- /.navbar-collapse -->
+</nav>
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<side>
+    <div id="player-wrapper">
+        <div id="player">
+            <div id="img-container"><img id="img"
+                                         src="img/song_default.png">
+            </div>
+            <div id="info">
+                <div id="info-title"></div>
+                <div id="info-artist"></div>
+            </div>
+            <div id="timeline-container">
+                <div id="timeline">
+                    <div id="playhead"></div>
+                </div>
+                <div id="times">
+                    <div id="times-left"></div>
+                    <div id="times-right"></div>
+                </div>
+            </div>
+            <div id="buttons">
+                <audio id="audio"></audio>
+                <button id="player-backward" class="player-button"><i class="fa fa-fast-backward"></i></button>
+                <button id="player-stop" class="player-button"><i class="fa fa-stop"></i></button>
+                <button id="player-play" class="player-button"><i class="fa fa-play"></i></button>
+                <button id="player-pause" class="player-button"><i class="fa fa-pause"></i></button>
+                <button id="player-forward" class="player-button"><i class="fa fa-fast-forward"></i></button>
+            </div>
+        </div>
+    </div>
+    <div id="qr-wrapper">
+        <img id="qr" height="200" width="200" src="img/qr.svg">
+
+        <div id="url">http://192.168.192.49:2323</div>
+    </div>
+</side>
+<content>
+
+    <div id="page-wrapper">
+
+        <div id="side-panel-overlay">
+        </div>
+        <div id="side-panel">
+            <div id="side-panel-content">
+                <div id="side-panel-controls">
+                    <a href="#" id="side-panel-close"><i class="fa fa-2x fa-times"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="content-wrapper" class="">
+
+            <div id="song-list" style="display: block;">
+                <div class="TableLite">
+                    <div class="TableLite-header">
+                        <table width="100%">
+                            <thead class="header">
+                            <tr>
+                                <th style="min-width:105px; max-width: 105px; width: 105px;"></th>
+                                <th style="min-width:200px; max-width: 200px; width: 200px;">Title</th>
+                                <th style="min-width:200px; max-width: 200px; width: 200px;">Artist</th>
+                                <th style="min-width:200px; max-width: 200px; width: 200px;">Album</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="TableLite-content" tabindex="0">
+                        <table width="100%">
+                            <tbody class="content">
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -01- Image Of The Invisible.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -01- Image Of The Invisible.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Image Of The Invisible</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -02- Between The End And Where We Lie.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -02- Between The End And Where We Lie.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Between The End And Where
+                                    We Lie
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -03- The Earth Will Shake.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -03- The Earth Will Shake.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">The Earth Will Shake</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -04- Atlantic.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -04- Atlantic.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Atlantic</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -05- For Miles.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -05- For Miles.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">For Miles</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -06- Hold Fast Hope.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -06- Hold Fast Hope.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Hold Fast Hope</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -07- Music Box.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -07- Music Box.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Music Box</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -08- Like Moths To Flame.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -08- Like Moths To Flame.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Like Moths To Flame</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -09- Of Dust And Nations.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -09- Of Dust And Nations.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Of Dust And Nations</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -10- Stand And Feel Your Worth.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -10- Stand And Feel Your Worth.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Stand And Feel Your Worth
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -11- Red Sky.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/(2005) Vheissu/Thrice - Vheissu -11- Red Sky.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Red Sky</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Thrice</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Vheissu</td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/01 - Take a Bow.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/01 - Take a Bow.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Take a Bow</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/02 - Starlight.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/02 - Starlight.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Starlight</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/03 - Supermassive Black Hole.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/03 - Supermassive Black Hole.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Supermassive Black Hole
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/04 - Map of the Problematique.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/04 - Map of the Problematique.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Map of the Problematiqué
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/05 - Soldier's Poem.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/05 - Soldier's Poem.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Soldier's Poem</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/06 - Invincible.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/06 - Invincible.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Invincible</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/07 - Assasain.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/07 - Assasain.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Assasain</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/08 - Exo-Polotics.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/08 - Exo-Polotics.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Exo-Polotics</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/09 - City of Delusion.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/09 - City of Delusion.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">City of Delusion</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/10 - Hoodoo.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/10 - Hoodoo.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Hoodoo</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/11 - Knights of Cydonia.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/2006 - Black Holes and Revelations/11 - Knights of Cydonia.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Knights of Cydonia</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Muse</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Black Holes and
+                                    Revelations
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/01-a_day_to_remember-sticks_and_bricks.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/01-a_day_to_remember-sticks_and_bricks.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Sticks &amp; Bricks</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">A Day to Remember</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">What Separates Me From
+                                    You
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/02-a_day_to_remember-all_i_want.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/02-a_day_to_remember-all_i_want.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">All I Want</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">A Day to Remember</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">What Separates Me From
+                                    You
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/03-a_day_to_remember-its_complicated.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/03-a_day_to_remember-its_complicated.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">It's Complicated</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">A Day to Remember</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">What Separates Me From
+                                    You
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/04-a_day_to_remember-this_is_the_house_that_doubt_built.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/04-a_day_to_remember-this_is_the_house_that_doubt_built.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">This is the House that
+                                    Doubt Built
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">A Day to Remember</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">What Separates Me From
+                                    You
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/05-a_day_to_remember-2nd_sucks.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/05-a_day_to_remember-2nd_sucks.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">2nd Sucks</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">A Day to Remember</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">What Separates Me From
+                                    You
+                                </td>
+                            </tr>
+                            <tr class="filled">
+                                <td style="min-width:105px; max-width: 105px; width: 105px;">
+                                    <div class="song-controls"><a href="#" class="playButton"
+                                                                  data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/06-a_day_to_remember-better_off_this_way.mp3"><i
+                                            class="fa fa-play"></i></a> <a href="#" class="addButton"
+                                                                           data-id="/home/luisbravoa/Music/luisbravoa/A Day To Remember – What Separates Me From You (2010)/06-a_day_to_remember-better_off_this_way.mp3"><i
+                                            class="fa fa-plus"></i></a></div>
+                                </td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">Better off This Way</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">A Day to Remember</td>
+                                <td style="min-width:200px; max-width: 200px; width: 200px;">What Separates Me From
+                                    You
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="artists" class="list-container" style="display: none;">
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Thrice"><img id="item-img"
+                                                                                       src="http://img2-ak.lst.fm/i/u/300x300/34122bbf099145b1a6b584d804ffa291.png"
+                                                                                       width="200"
+                                                                                       onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Thrice">Thrice</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Thrice"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Muse"><img id="item-img"
+                                                                                     src="http://img2-ak.lst.fm/i/u/300x300/1b4e7caa4bb542fbaefb4755bc34bfa3.png"
+                                                                                     width="200"
+                                                                                     onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Muse">Muse</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Muse"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/A Day to Remember"><img id="item-img"
+                                                                                                  src="http://img2-ak.lst.fm/i/u/300x300/1f54476d0c2b47aeb0e2b69739badb54.png"
+                                                                                                  width="200"
+                                                                                                  onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/A Day to Remember">A Day to
+                            Remember</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/A Day to Remember"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Atreyu"><img id="item-img"
+                                                                                       src="http://img2-ak.lst.fm/i/u/300x300/2f3226c687f9495f9b8d0c8bcc6a02ee.png"
+                                                                                       width="200"
+                                                                                       onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Atreyu">Atreyu</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Atreyu"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/††† (Crosses)"><img id="item-img"
+                                                                                              src="http://img2-ak.lst.fm/i/u/300x300/417197f022db4027b001be23c4049f63.png"
+                                                                                              width="200"
+                                                                                              onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/††† (Crosses)">†††
+                            (Crosses)</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/††† (Crosses)"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Deftones"><img id="item-img"
+                                                                                         src="http://img2-ak.lst.fm/i/u/300x300/39810c470023437cbe30a7b902a2d60f.png"
+                                                                                         width="200"
+                                                                                         onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Deftones">Deftones</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Deftones"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Dredg"><img id="item-img"
+                                                                                      src="http://img2-ak.lst.fm/i/u/300x300/31a4ab1ff301489681c270c02d9234ef.png"
+                                                                                      width="200"
+                                                                                      onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Dredg">Dredg</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Dredg"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/tlx"><img id="item-img"
+                                                                                    src="http://img2-ak.lst.fm/i/u/300x300/aabc3873021b4b7189d56d8bc1f4bef2.png"
+                                                                                    width="200"
+                                                                                    onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/tlx">tlx</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/tlx"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/El Que Baila Con Lobos."><img id="item-img"
+                                                                                                        src="img/artist_default.png"
+                                                                                                        width="200"
+                                                                                                        onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/El Que Baila Con Lobos.">El
+                            Que Baila Con Lobos.</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a
+                                href="#artist/El Que Baila Con Lobos."></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Estatico|Cielo"><img id="item-img"
+                                                                                               src="http://img2-ak.lst.fm/i/u/300x300/bac7532feb144a3b86c053f0aa1162c3.png"
+                                                                                               width="200"
+                                                                                               onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Estatico|Cielo">Estatico|Cielo</a>
+                        </div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Estatico|Cielo"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Finch"><img id="item-img"
+                                                                                      src="http://img2-ak.lst.fm/i/u/300x300/62de66100be2402d8bbc397c9966b4d4.png"
+                                                                                      width="200"
+                                                                                      onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Finch">Finch</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Finch"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Glassjaw"><img id="item-img"
+                                                                                         src="http://img2-ak.lst.fm/i/u/300x300/19e938bab1fb446e8ef1ec6c769a700a.png"
+                                                                                         width="200"
+                                                                                         onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Glassjaw">Glassjaw</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Glassjaw"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Happy Body Slow Brain"><img id="item-img"
+                                                                                                      src="http://img2-ak.lst.fm/i/u/300x300/30be9ea7b38e450eb171c2cabd0dde51.png"
+                                                                                                      width="200"
+                                                                                                      onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Happy Body Slow Brain">Happy
+                            Body Slow Brain</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a
+                                href="#artist/Happy Body Slow Brain"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Incubus"><img id="item-img"
+                                                                                        src="http://img2-ak.lst.fm/i/u/300x300/7babbfc3e301436bb5391a2ec1eabfd8.png"
+                                                                                        width="200"
+                                                                                        onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Incubus">Incubus</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Incubus"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Jakob Dylan"><img id="item-img"
+                                                                                            src="http://img2-ak.lst.fm/i/u/300x300/35d8008d3ca346fe998d18c500c028fc.png"
+                                                                                            width="200"
+                                                                                            onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Jakob Dylan">Jakob Dylan</a>
+                        </div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Jakob Dylan"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Jimmy Eat World"><img id="item-img"
+                                                                                                src="http://img2-ak.lst.fm/i/u/300x300/586ff431a0f440bfab3630c573220607.png"
+                                                                                                width="200"
+                                                                                                onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Jimmy Eat World">Jimmy Eat
+                            World</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Jimmy Eat World"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/INCUBUS"><img id="item-img"
+                                                                                        src="http://img2-ak.lst.fm/i/u/300x300/7babbfc3e301436bb5391a2ec1eabfd8.png"
+                                                                                        width="200"
+                                                                                        onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/INCUBUS">INCUBUS</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/INCUBUS"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Metric"><img id="item-img"
+                                                                                       src="http://img2-ak.lst.fm/i/u/300x300/1e88acac8c9b442f949160f5397f6bce.png"
+                                                                                       width="200"
+                                                                                       onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Metric">Metric</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Metric"></a></div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Ocean Is Theory"><img id="item-img"
+                                                                                                src="http://img2-ak.lst.fm/i/u/300x300/ca55ef7fc8ee469b87d5ba1eea1a608a.png"
+                                                                                                width="200"
+                                                                                                onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Ocean Is Theory">Ocean Is
+                            Theory</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Ocean Is Theory"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item artist">
+                    <div class="list-item-img-container"><a href="#artist/Phillip Phillips"><img id="item-img"
+                                                                                                 src="http://img2-ak.lst.fm/i/u/300x300/10497c2b9750423fbba8778263810fb6.png"
+                                                                                                 width="200"
+                                                                                                 onerror="this.src='img/artist_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#artist/Phillip Phillips">Phillip
+                            Phillips</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Phillip Phillips"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="albums" class="list-container" style="display: none;">
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Thrice/Vheissu"><img id="item-img"
+                                                                                              src="http://img2-ak.lst.fm/i/u/300x300/e3532455b394460baa3f43220f6fd22f.png"
+                                                                                              width="200"
+                                                                                              onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Thrice/Vheissu">Vheissu</a>
+                        </div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Thrice">Thrice</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Muse/Black Holes and Revelations"><img
+                            id="item-img" src="http://img2-ak.lst.fm/i/u/300x300/1e1eca4a63fe4a82a70d37b1dca8dbcc.png"
+                            width="200" onerror="this.src='img/album_default.png'"></a></div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/Muse/Black Holes and Revelations">Black Holes and Revelations</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Muse">Muse</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a
+                            href="#album/A Day to Remember/What Separates Me From You"><img id="item-img"
+                                                                                            src="http://img2-ak.lst.fm/i/u/300x300/d05d163494c34751b14ba19f06d29676.png"
+                                                                                            width="200"
+                                                                                            onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/A Day to Remember/What Separates Me From You">What Separates Me From
+                            You</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/A Day to Remember">A Day
+                            to Remember</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Atreyu/The Curse"><img id="item-img"
+                                                                                                src="http://img2-ak.lst.fm/i/u/300x300/8287940ec195467b957b01fa1e288135.png"
+                                                                                                width="200"
+                                                                                                onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Atreyu/The Curse">The
+                            Curse</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Atreyu">Atreyu</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/††† (Crosses)/EP †† - EP"><img id="item-img"
+                                                                                                        src="img/album_default.png"
+                                                                                                        width="200"
+                                                                                                        onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/††† (Crosses)/EP †† - EP">EP
+                            †† - EP</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/††† (Crosses)">†††
+                            (Crosses)</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Deftones/Koi No Yokan"><img id="item-img"
+                                                                                                     src="http://img2-ak.lst.fm/i/u/300x300/8564fda5a70f40ec9d5b8b78a80c3efd.png"
+                                                                                                     width="200"
+                                                                                                     onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Deftones/Koi No Yokan">Koi No
+                            Yokan</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Deftones">Deftones</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Dredg/Catch Without Arms"><img id="item-img"
+                                                                                                        src="http://img2-ak.lst.fm/i/u/300x300/6fe828339e8e4d25a8cb38172cf36f00.png"
+                                                                                                        width="200"
+                                                                                                        onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Dredg/Catch Without Arms">Catch
+                            Without Arms</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Dredg">Dredg</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/tlx/33 Minutos Y En Auto"><img id="item-img"
+                                                                                                        src="http://img2-ak.lst.fm/i/u/300x300/85abc459821f480487da6b607c0c78bb.png"
+                                                                                                        width="200"
+                                                                                                        onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/tlx/33 Minutos Y En Auto">33
+                            Minutos Y En Auto</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/tlx">tlx</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a
+                            href="#album/El Que Baila Con Lobos./El Que Baila Con Lobos."><img id="item-img"
+                                                                                               src="img/album_default.png"
+                                                                                               width="200"
+                                                                                               onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/El Que Baila Con Lobos./El Que Baila Con Lobos.">El Que Baila Con
+                            Lobos.</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/El Que Baila Con Lobos.">El
+                            Que Baila Con Lobos.</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Estatico|Cielo/Estatico|Cielo EP"><img
+                            id="item-img" src="img/album_default.png" width="200"
+                            onerror="this.src='img/album_default.png'"></a></div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/Estatico|Cielo/Estatico|Cielo EP">Estatico|Cielo EP</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Estatico|Cielo">Estatico|Cielo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Estatico|Cielo/Sr.Karma EP"><img id="item-img"
+                                                                                                          src="img/album_default.png"
+                                                                                                          width="200"
+                                                                                                          onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Estatico|Cielo/Sr.Karma EP">Sr.Karma
+                            EP</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Estatico|Cielo">Estatico|Cielo</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Finch/Self Titled [Explicit]"><img
+                            id="item-img" src="img/album_default.png" width="200"
+                            onerror="this.src='img/album_default.png'"></a></div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/Finch/Self Titled [Explicit]">Self Titled [Explicit]</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Finch">Finch</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Glassjaw/Our Color Green"><img id="item-img"
+                                                                                                        src="http://img2-ak.lst.fm/i/u/300x300/b8842fdf6f6a45b0c58c2abe80412c75.png"
+                                                                                                        width="200"
+                                                                                                        onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Glassjaw/Our Color Green">Our
+                            Color Green</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Glassjaw">Glassjaw</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a
+                            href="#album/Glassjaw/Everything You Ever Wanted To Know About Silence"><img id="item-img"
+                                                                                                         src="http://img2-ak.lst.fm/i/u/300x300/4446751d9708455eb119aab7744ff756.png"
+                                                                                                         width="200"
+                                                                                                         onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/Glassjaw/Everything You Ever Wanted To Know About Silence">Everything You
+                            Ever Wanted To Know About Silence</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Glassjaw">Glassjaw</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Happy Body Slow Brain/Dreams Of Water"><img
+                            id="item-img" src="http://img2-ak.lst.fm/i/u/300x300/e6bcb00f9e5c47fdbeedea52f2c51679.png"
+                            width="200" onerror="this.src='img/album_default.png'"></a></div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/Happy Body Slow Brain/Dreams Of Water">Dreams Of Water</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Happy Body Slow Brain">Happy
+                            Body Slow Brain</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Incubus/Incubus HQ Live"><img id="item-img"
+                                                                                                       src="http://img2-ak.lst.fm/i/u/300x300/15c20ded91884c1b84591f53e73a96a5.png"
+                                                                                                       width="200"
+                                                                                                       onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Incubus/Incubus HQ Live">Incubus
+                            HQ Live</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Incubus">Incubus</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Jakob Dylan/Women and Country"><img
+                            id="item-img" src="http://img2-ak.lst.fm/i/u/300x300/c15130e15b324ebd8a95bcb1d9732dcd.png"
+                            width="200" onerror="this.src='img/album_default.png'"></a></div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/Jakob Dylan/Women and Country">Women and Country</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Jakob Dylan">Jakob
+                            Dylan</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/Jimmy Eat World/Invented"><img id="item-img"
+                                                                                                        src="http://img2-ak.lst.fm/i/u/300x300/28f94b1c2b114939bbb15a38e1e17085.png"
+                                                                                                        width="200"
+                                                                                                        onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/Jimmy Eat World/Invented">Invented</a>
+                        </div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/Jimmy Eat World">Jimmy Eat
+                            World</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a href="#album/INCUBUS/Make Yourself"><img id="item-img"
+                                                                                                     src="http://img2-ak.lst.fm/i/u/300x300/132af824c9184042835cfc083a3ff085.png"
+                                                                                                     width="200"
+                                                                                                     onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a href="#album/INCUBUS/Make Yourself">Make
+                            Yourself</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/INCUBUS">INCUBUS</a></div>
+                    </div>
+                </div>
+                <div class="list-item album">
+                    <div class="list-item-img-container"><a
+                            href="#album/INCUBUS/INCUBUS   MAKE YOURSELF - TOUR EDITION"><img id="item-img"
+                                                                                              src="http://img2-ak.lst.fm/i/u/300x300/7a8fe64cdf1e481d95dae5799943c294.png"
+                                                                                              width="200"
+                                                                                              onerror="this.src='img/album_default.png'"></a>
+                    </div>
+                    <div class="list-item-link-container">
+                        <div class="list-item-name list-item-primary-link"><a
+                                href="#album/INCUBUS/INCUBUS   MAKE YOURSELF - TOUR EDITION">INCUBUS MAKE YOURSELF -
+                            TOUR EDITION</a></div>
+                        <div class="list-item-name list-item-secondary-link"><a href="#artist/INCUBUS">INCUBUS</a></div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: none;">
+                <div id="song-list"><h2>Now Playing</h2>
+                    <table id="queue-song-current" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Album</th>
+                            <th>Artist</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <h2>Next...</h2>
+                    <table id="queue-song-list" style="width:100%">
+                        <tbody>
+                        <tr>
+                            <th>Title</th>
+                            <th>Album</th>
+                            <th>Artist</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+</content>
+<!-- /#wrapper -->
+<div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     style="display: none;">
+    <div style="position: fixed; top:calc(50% - 50px); margin-left: auto; margin-right: auto; width: 300px;left: calc(50% - 150px); text-align:center;">
+        <i class="fa fa-cog fa-spin fa-5x" style="top:50%; color: white;"></i>
+
+        <p style="color: white;" id="loader-message">loading songs info 388 of 389</p>
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<table style="width:100%">
+    <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Album</th>
+        <th>Artist</th>
+        <th>file</th>
+        {{#each items}}
+    </tr>
+    <tr>
+        <td>{{{play}}}</td>
+        <td>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</td>
+        <td>{{#if album}}{{album}}{{else}}(Unknown){{/if}}</td>
+        <td>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</td>
+        <td>{{file}}</td>
+    </tr>
+    {{/each}}
+</table>

@@ -6,15 +6,14 @@ mode="$1"
 
 echo ${mode}
 
-if [ "${mode}" == "mac" ]
-then
-	grunt build --platforms=osx32,osx64
-	grunt compress --platforms=osx32,osx64
-
-else
+#if [ "${mode}" == "mac" ]
+#then
+#	grunt build --platforms=osx32,osx64
+#	grunt compress --platforms=osx32,osx64
+#
+#else
 	grunt bump
-	grunt build --platforms=win32,win64,linux32,linux64
-	grunt compress --platforms=win32,win64,linux32,linux64
+	grunt build --platforms=win32,win64,linux32,linux64,osx32,osx64
+	grunt compress --platforms=win32,win64,linux32,linux64,osx32,osx64
 	grunt changelog
-fi
-
+#fi

@@ -1,0 +1,76 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" onclick="return false;">Pickatune</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active" data-toggle="collapse" data-target=".navbar-collapse"><a href="#songs">Songs</a>
+                </li>
+                <li><a href="#artists" data-toggle="collapse" data-target=".navbar-collapse">Artists</a>
+                </li>
+                <li><a href="#albums" data-toggle="collapse" data-target=".navbar-collapse">Albums</a>
+                </li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-wrapper">
+        <div id="side-panel-overlay">
+        </div>
+        <div id="side-panel">
+            <div id="side-panel-content">
+                <div class="row" style="vertical-align: top;">
+                    <div class="col-lg-10  col-sm-10 col-md-10 col-xs-10">
+                        <h4 id="side-panel-song">Song</h4>
+                        <h4 id="side-panel-artist">Artist</h4>
+                    </div>
+                    <div class="col-lg-1 col-sm-1 col-md-1 col-xs-1  pull-right" id="side-panel-actions"><a href="#"
+                                                                                                            id="side-panel-close"><i
+                            class="fa fa-2x fa-times"></i></a>
+                    </div>
+                </div>
+
+                <div id="side-panel-buttons">
+                    <button type="button" class="btn btn-default btn-lg btn-block" id="play">Play</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block" id="add">Add</button>
+                    <button type="button" class="btn btn-default btn-lg btn-block" id="play-device">Play in device
+                    </button>
+                </div>
+                <audio controls autoplay id="player"></audio>
+            </div>
+        </div>
+
+        <div class="content-wrapper"></div>
+
+
+    </div>
+    <!-- /.container -->
+</div>
+<style>
+    #loader-content{
+        color: white;
+        position: absolute;
+        top: calc(50% - 45px);
+        width: 200px;;
+        left: calc(50% - 100px);
+        text-align: center;
+    }
+</style>
+
+<div class="modal fade" id="loader">
+    <div id="loader-content">
+        <div><i class="fa fa-refresh fa-spin fa-5x"></i></div>
+        <div>Conecting with server...</div>
+    </div>
+</div>

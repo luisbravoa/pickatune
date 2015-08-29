@@ -1,0 +1,39 @@
+.SongList {}
+
+.SongList-content, .DetailList-content{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.SongList-content li, .DetailList-content li, {
+    height: 46px;
+    list-style: none;
+    border-bottom: 1px solid #222222;
+
+}
+
+
+.SongList-content li{
+    margin: 0;
+}
+.SongList-content li h2, .DetailList-content li h2  {
+    font-size: 14px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
+}
+
+.SongList-content li p, .DetailList-content li p {
+    font-size: 12px;
+    margin: 0;
+    padding-bottom: 2px;
+}
+
+.SongList-content .empty{
+    height: 46px;
+}
+.SongList-content li{
+    height: 46px;
+    overflow-y: hidden;
+}

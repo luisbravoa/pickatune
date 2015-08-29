@@ -1,0 +1,21 @@
+
+
+#song-list table {
+    border-width: 0px;
+    border-color: #222;
+    border-collapse: collapse;
+}
+#song-list table th {
+    background-color: #575757;
+    border-width: 0px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #ccc;
+}
+#song-list table tr {
+    /*border-bottom: 1px #222 solid;*/
+}
+#song-list table td {
+    padding: 8px;
+    white-space: nowrap;
+}

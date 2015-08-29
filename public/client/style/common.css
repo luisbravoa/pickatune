@@ -1,0 +1,171 @@
+body{
+
+-webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+::-webkit-scrollbar {
+    height: 12px;
+    width: 12px;
+    background: #0F0F0F;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222;    
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+    background: #000;
+}
+
+/*
+.playButton {
+    color: white;
+    opacity: 0.7;
+}
+
+.addButton:hover {
+    opacity: 1;
+    color: white;
+}
+*/
+
+.song-controls > a{
+    vertical-align: middle;
+    margin-left: 5px;
+    margin-right: 5px;
+    color: white;
+    opacity: 0.7;
+}
+.song-controls > a:hover{
+    color: white;
+    opacity: 1;
+}
+
+
+/*thumbnail lis*/
+
+.list-container .list-item{
+    display: inline-block;
+    width: 175px;
+    margin: 10px;
+    opacity: .7;
+    vertical-align: top;
+}
+.list-container .list-item a{
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+}
+
+.list-container .list-item-img-container{
+    width: 100%;
+    overflow: hidden;
+    vertical-align: middle;
+    text-align: center;
+    position:relative;
+}
+.list-container .list-item-img-container img{
+
+    display: inline-block;
+    vertical-align: middle;
+}
+.list-item.artist .list-item-img-container{
+    width: 100%;
+    /*height: 100%;*/
+    height: 125px;
+}
+.list-item.album .list-item-img-container img{
+
+    max-height: 175px;
+    min-width: 100%;
+}
+
+.list-item.album img{
+    width: 100%;
+    height: 100%;
+}
+
+.list-container .list-item:hover{
+    opacity: 1;
+}
+
+.list-item-link-container{
+    height: 45px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+
+.list-item-primary-link{
+    font-weight: bold;
+}
+.list-item-secondary-link{
+    padding-top: 5px;
+    font-style: italic;
+}
+
+.list-item.album .list-item-link-container{
+    height: 70px;
+}
+
+
+
+#side-panel-overlay{
+    background-color: #000000;
+    opacity: .7;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 0;
+}
+
+#side-panel{
+    padding-top: 50px;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    background-color: #222222;
+    width: 0;
+    overflow: hidden;
+    -webkit-transition: width 5s ease-in-out;
+    -moz-transition: width .5s ease-in-out;
+    -o-transition: width .5s ease-in-out;
+    transition: width .5s ease-in-out;
+
+    color: #ffffff;
+    overflow-y: auto;
+
+}
+#side-panel-content{
+    padding-left: 15px;
+    padding-right: 15px;
+    min-width: 300px;
+    overflow-y: auto;
+}
+
+#side-panel-actions{
+    padding-top: 15px;
+    text-align: right;
+}
+#side-panel-close i {
+    color:#ffffff;
+}
+#side-panel-buttons{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
+.btn-default {
+    border-radius: 0;
+}

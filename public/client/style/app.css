@@ -1,0 +1,229 @@
+body {
+    background-color: #000;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+}
+
+#page-wrapper {
+    width: 100%;
+    padding: 0;
+    background-color: #000;
+    height: 100%;
+    color: #FFFFFF;
+}
+
+#songs {
+    font-size: 12px;
+}
+
+#page-wrapper {
+    font-size: 12px;
+    overflow: auto;
+}
+
+#page-wrapper,
+#content-wrapper {
+    height: 100%;
+}
+
+#content-wrapper>div {
+    overflow: auto;
+    height: 100%;
+}
+
+.navbar-header {
+    width: 225px;
+}
+
+#player-wrapper #player {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#qr-wrapper {
+    margin-top: 20px;
+    background-color: rgba(255,255,255,0.2);
+    width: 200px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 30px;
+    background-color: black;
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+    vertical-align: top;
+    z-index: 1050;
+}
+
+#header-controls {
+    position: absolute;
+    right: 0;
+    width: 150px;
+    padding-right: 10px;
+    height: 30px;
+    text-align: right;
+    top: 0;
+}
+
+#header-controls div {
+    -webkit-app-region: no-drag;
+    vertical-align: -webkit-baseline-middle;
+    display: inline-block;
+}
+
+#header-controls i {
+    color: white;
+}
+
+#header-title {
+    color: white;
+    display: inline-block;
+    width: calc(100% - 150px);
+    vertical-align: middle;
+    padding-left: 10px;
+    line-height: 30px;
+    text-align: center;
+}
+
+content {
+    position: fixed;
+    top: 70px;
+    right: 0px;
+    left: 225px;
+    bottom: 0;
+    padding-left: 0;
+}
+
+.navbar-fixed-top {
+    top: 30px;
+}
+
+.nav.navbar-nav.side-nav {
+    margin-top: 30px;
+}
+
+.content-wrapper {
+    padding-top: 30px;
+}
+
+nav.navbar {
+    height: 40px;
+    min-height: 40px;
+    padding: 0;
+    border: none;
+}
+
+nav.navbar a {
+    color: #9d9d9d;
+}
+
+.nav.navbar-left {
+    color: #9d9d9d;
+    width: 600px;
+}
+.nav.navbar-right {
+    padding-right: 10px;
+}
+
+.navbar-header {
+    height: 100%;
+}
+
+.navbar-brand {
+    padding: 11px 15px;
+}
+
+.nav>li {
+    display: inline-block;
+    vertical-align: middle;
+}
+.nav li :hover, .nav li :active, .nav li a :hover, .nav li a :active {
+    background-color: transparent;
+}
+
+.container-fluid {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+side {
+    padding-top: 25px;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 225px;
+    bottom: 0;
+    background-color: #222;
+    z-index: 1000;
+}
+#logo{
+    text-align: center;
+    position: relative;
+    top: 20px;
+}
+/*        fullscreen*/
+
+body.fullScreen header {
+    display: none;
+}
+
+body.fullScreen content,
+body.fullScreen side {
+    top: 40px;
+}
+
+body.fullScreen nav {
+    top: 0;
+}
+
+#url{
+    background-color: black;
+    color: white;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: black;
+    color: white;
+}
+
+
+/*sidepanel*/
+#page-wrapper.side #side-panel{
+    width: 90%;
+}
+
+#page-wrapper.side #side-panel-overlay{
+    width: 100%;
+}
+
+#side-panel, #side-panel-overlay{
+    z-index: 1030;
+}
+
+#side-panel {
+    background-color: black;
+    padding-top: 0;
+}
+#side-panel-content {
+    
+}
+
+#side-panel-controls{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.song-queue{
+    padding: 10px;
+}

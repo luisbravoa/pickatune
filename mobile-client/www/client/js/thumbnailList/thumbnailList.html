@@ -1,0 +1,12 @@
+<div class="list-item {{type}}">
+    <div class="list-item-img-container"><a href="{{primaryLink}}">{{#if img}}<img id="item-img" src="{{defaultImage}}"
+                                                                                   width="200"
+                                                                                   onerror="this.src=\'{{defaultImage}}\'">{{/if}}</a>
+    </div>
+    <div class="list-item-link-container">
+        <div class="list-item-name list-item-primary-link"><a href="{{primaryLink}}">{{name}}</a></div>
+        {{#if secondaryLink}}
+        <div class="list-item-name list-item-secondary-link"><a href="{{secondaryLink}}">{{artist}}</a></div>
+        {{/if}}
+    </div>
+</div>
