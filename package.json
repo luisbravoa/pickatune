@@ -1,6 +1,6 @@
 {
   "name": "prototype",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "index.html",
   "window": {
     "title": "Pickatune",
@@ -10,7 +10,8 @@
     "height": 700,
     "min_width": 1024,
     "min_height": 700,
-    "toolbar": false
+    "toolbar": false,
+    "icon": "icon.png"
   },
   "dependencies": {
     "express": "^4.12.3",
