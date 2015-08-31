@@ -1,0 +1,120 @@
+@import "colors.less";
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: @backgroundDark;
+}
+
+::-webkit-scrollbar-thumb {
+  background: @primaryDark;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75);
+}
+
+::-webkit-scrollbar-corner {
+  background: black;
+}
+
+.btn {
+  border-radius: 0;
+}
+.btn.btn-primary{
+  background-color: @primaryBright;
+  border-color: @primaryBright;
+}
+.modal-dialog{
+  color: white;
+  z-index: 1041;
+}
+.modal-content{
+  border-radius: 0;
+  border: 1px solid @borderDark;
+  background-color: black;
+}
+.modal-header{
+  background-color: @primaryBright;
+  color: white;
+  border-bottom-color:@borderDark;
+}
+
+.modal-footer{
+  border-top-color: @borderDark;
+}
+
+
+.modal-dialog {
+  padding-top: 15%;
+}
+
+#page-wrapper{
+  /*color de fondo del contenido*/
+  background-color: @backgroundDark;
+}
+
+
+#side-panel-overlay {
+  background-color: #000000;
+  opacity: .7;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+}
+
+#side-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: black;
+  width: 0;
+  overflow: hidden;
+  -webkit-transition: width 5s ease-in-out;
+  -moz-transition: width .5s ease-in-out;
+  -o-transition: width .5s ease-in-out;
+  transition: width .5s ease-in-out;
+
+  color: @textLight;
+  overflow-y: auto;
+
+}
+
+#side-panel-content {
+  padding-left: 15px;
+  padding-right: 15px;
+  min-width: 300px;
+  overflow-y: auto;
+}
+
+#side-panel-actions {
+  padding-top: 15px;
+  text-align: right;
+}
+
+#side-panel-close i {
+  color: @textLight;
+}
+
+#side-panel-buttons {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar-inverse, side, .list-item-link-container{
+  background-color: @primaryDark;
+}
+.nav > li > a:hover, .nav > li > a:focus,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+  background-color: @primaryBright;
+  color: @textLight;
+}

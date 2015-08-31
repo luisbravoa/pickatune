@@ -1,15 +1,30 @@
 <div id="settings" class="form-group">
-    <div class="col-lg-12">
-        <h1>Settings</h1>
+    <form>
+        <div class="col-lg-12">
+            <h1>Settings</h1>
 
-        <div class="form-group">
-            <label data-i18n="MusicFolder"></label>
-            <input type="file" id="musicFolder" webkitdirectory>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label><span data-i18n="MusicFolder"></span> <span id="currentMusicFolder"></span></label>
+                    <input type="file" name="musicFolder" id="musicFolder" webkitdirectory value="/home/luisbravoa/Music/luisbravoa">
+                    <p class="help-block" data-i18n="ChooseFolder"></p>
+                </div>
+            </div>
 
-            <p class="help-block" data-i18n="ChooseFolder"></p>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="language" data-i18n="Language"></label>
+                    <select name="language" id="language" class="form-control" style="width: 200px;">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <p>
+                <button id="settings-save" class="btn btn-default" data-i18n="Save"></button>
+            </p>
         </div>
-        <p>
-            <button id="settings-save" class="btn btn-default" data-i18n="Save"></button>
-        </p>
-    </div>
+    </form>
 </div>

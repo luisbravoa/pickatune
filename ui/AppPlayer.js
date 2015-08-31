@@ -146,7 +146,7 @@ define(['jquery', 'handlebars', './Player'], function ($, Handlebars, Player) {
         this.currentSong = song;
 
         if (this.options.onChange) {
-            this.options.onChange();
+            this.options.onChange(song);
         }
 
     };

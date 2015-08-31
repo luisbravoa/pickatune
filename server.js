@@ -28,7 +28,7 @@ var routes = {
     Albums: require('./routes/Albums')
 };
 
-
+global.songs = [];
 global.db = require('./misc/db.js');
 
 try {
@@ -44,13 +44,19 @@ function reload() {
             .then(function (musicFolder) {
 
                 if (musicFolder !== undefined && musicFolder !== 'undefined') {
-                    console.log('refresssssssssssssssssssh', musicFolder);
                     routes.Main.loadfiles(musicFolder);
                     app.use('/music', express.static(musicFolder));
                 } else {
-                    global.eventBus.emit('reload:error');
+                    global.eventBus.emit('reload:ready');
                 }
-                console.log('>>>>>>>>>>. ', musicFolder);
+            })
+            .catch(function (e) {
+                //setTimeout(function () {
+                console.log(e);
+                throw e;
+                    global.eventBus.emit('reload:error');
+                //}, 1000);
+
             });
     }catch(e){
         global.eventBus.emit('reload:error');
@@ -58,7 +64,9 @@ function reload() {
 
 
 }
-reload();
+
+
+setTimeout(reload, 500);
 
 global.eventBus.on('songs:reload', reload);
 
@@ -90,6 +98,7 @@ http.get(options, function (res) {
 
 
     app.get('/qr', routes.Index.qr);
+    app.get('/config', routes.Index.config);
     app.get('/songs/length', routes.Songs.length);
     app.get('/songs/index/:indexes', routes.Songs.getSongByIndex);
     app.get('/songs/play/:id', routes.Songs.play);

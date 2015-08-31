@@ -1,0 +1,73 @@
+@import "colors.less";
+.SongList {
+}
+
+.SongList-content, .DetailList-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.SongList-content li, .DetailList-content li, {
+  height: 46px;
+  list-style: none;
+  border-bottom: 1px solid #222222;
+
+}
+
+.SongList-content li {
+  margin: 0;
+}
+
+.SongList-content li h2, .DetailList-content li h2 {
+  font-size: 14px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+.SongList-content li p, .DetailList-content li p {
+  font-size: 12px;
+  margin: 0;
+  padding-bottom: 2px;
+}
+
+.SongList-content li {
+  height: 46px;
+  overflow-y: hidden;
+}
+
+#song-list table {
+  border-width: 0px;
+  border-color: #222;
+  border-collapse: collapse;
+}
+
+#song-list table th, #detailList table thead tr{
+  border-bottom: 1px solid white;
+}
+
+#song-list table tr.current, #detailList table tr.current{
+  color: @secondary;
+}
+tr:hover .song-controls > a, tr.current .song-controls > a,  tr.current .song-controls > a, {
+  color: @secondary;
+}
+
+#song-list table tbody td {
+  padding: 8px;
+  white-space: nowrap;
+}
+
+.song-controls > a {
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
+  opacity: 0.7;
+}
+
+.song-controls > a:hover {
+  color: white;
+  opacity: 1;
+}

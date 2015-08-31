@@ -37,7 +37,7 @@ module.exports = function (grunt) {
                 //mac_icns: './images/popcorntime.icns', // Path to the Mac icon file
                 platforms: platforms
             },
-            src: ['./misc/**', './public/**', './models/**', './public/**', './js/**', './ui/**', './routes/**', './node_modules/**', '!./node_modules/grunt*/**', './index.html', './app.js', './server.js', './package.json', './README.md'] // Your node-webkit app './**/*'
+            src: ['./misc/**', './public/**', './models/**', './public/**', './js/**', './ui/**', './routes/**', './node_modules/**', '!./node_modules/grunt*/**', './index.html', './app.js', './server.js', './package.json', './icon.png', './README.md'] // Your node-webkit app './**/*'
         },
         copy: {
             main: {
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
                 createTag: true,
                 tagName: 'v%VERSION%',
                 tagMessage: 'Version %VERSION%',
-                push: false,
+                push: true,
                 pushTo: 'origin',
                 gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d',
                 globalReplace: false,

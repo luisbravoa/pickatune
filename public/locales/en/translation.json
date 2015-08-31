@@ -8,22 +8,27 @@
   "Connecting":"Connecting to server...",
   "Retry":"Retry",
   "Close":"Close",
-  "ModalTitle":"Cannot find server",
-  "ModalContent":"Cannot find server, please make your that Pickatune is running on your computer.",
   "Unknown":"Unknown",
   "Settings":"Settings",
   "Save":"Save",
   "ChooseFolder":"Choose the folder where your music is in.",
   "Queue":"Queue",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":"",
-  "":""
+  "networkError": {
+    "title": "Cannot find server",
+    "content": "Cannot find server, please make your that Pickatune is running on your computer.",
+    "action": "Retry"
+  },
+  "loadError": {
+    "title": "Error while loading music",
+    "content": "There was an error while trying to load the music. Try changing the folder on the settings section.",
+    "action": "OK"
+  },
+  "Language":"Language",
+  "MusicFolder":"Music Folder",
+  "Title":"Title",
+  "Artist":"Artist",
+  "Album":"Album",
+  "NowPlaying":"Now Playing",
+  "Next":"Next",
+  "LoadingSongs": "loading songs info {0} of {1}"
 }

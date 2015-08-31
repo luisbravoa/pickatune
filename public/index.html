@@ -12,20 +12,23 @@
 
     <title>Pickatune</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="client/style/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="client/style/table.css" rel="stylesheet">
-    <link href="client/style/songList.css" rel="stylesheet">
-    <link href="client/style/client.css" rel="stylesheet">
-    <link href="client/style/common.css" rel="stylesheet">
 
-    <link href="client/style/colors.css" rel="stylesheet">
+    <!--&lt;!&ndash; Bootstrap core CSS &ndash;&gt;-->
+    <link href="client/style/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="client/style/base.less" />
+    <link rel="stylesheet/less" type="text/css" href="client/style/client.less" />
+    <link rel="stylesheet/less" type="text/css" href="client/style/table.less" />
+    <link rel="stylesheet/less" type="text/css" href="client/style/songList.less" />
+    <link rel="stylesheet/less" type="text/css" href="client/style/thumbnailList.less" />
+
 
     <!-- Custom Fonts -->
     <link href="client/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <script src="client/js/lib/less.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        less.env = "development";
+    </script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -34,6 +37,7 @@
     <![endif]-->
 
     <script data-main="config" src="client/js/lib/require.js"></script>
+
 </head>
 
 <body>

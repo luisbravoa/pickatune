@@ -1,3 +1,4 @@
+@import "colors.less";
 #player{
     vertical-align: middle;
     width: 200px;
@@ -18,6 +19,8 @@
     border: 0;
     margin-left: 5px;
     margin-right: 5px;
+    background-color: @primaryBright;
+    color: @textLight;
 }
 #player-play, #player-pause, #player-stop{
     width: 40px;
@@ -38,7 +41,7 @@
     width: 0;
     height: 7px;
     margin-top: 0px;
-    background: #FFFFFF;
+    background: @secondary;
 }
 
 #times{

@@ -2,7 +2,7 @@ var _ = require('underscore');
 
 exports.play = function (req, res) {
 
-    var id = parseInt(req.param('id'));
+    var id = parseInt(req.params.id);
     var song = _.findWhere(global.songs, {id: id});
     if(song){
         global.eventBus.emit('song:play', song);
@@ -13,7 +13,7 @@ exports.play = function (req, res) {
 
 exports.add = function (req, res) {
 
-    var id = parseInt(req.param('id'));
+    var id = parseInt(req.params.id);
     var song = _.findWhere(global.songs, {id: id});
     if(song){
         global.eventBus.emit('song:add', song);
@@ -23,7 +23,7 @@ exports.add = function (req, res) {
 
 exports.getById = function (req, res) {
 
-    var id = parseInt(req.param('id'));
+    var id = parseInt(req.params.id);
     var song = _.findWhere(global.songs, {id: id});
     res.send(song);
 };
@@ -34,8 +34,8 @@ exports.list = function (req, res) {
 
 exports.listPaginated = function (req, res) {
 
-    var index = parseInt(req.param("index"));
-    var length = parseInt(req.param("length"));
+    var index = parseInt(req.params.index);
+    var length = parseInt(req.params.length);
 
     console.log(index, index + length);
 
@@ -50,7 +50,7 @@ exports.listPaginated = function (req, res) {
 
 exports.getSongByIndex = function (req, res) {
 
-    var indexes = req.param('indexes').split(',');
+    var indexes = req.params.indexes.split(',');
 
     //debugger;
     var response = {};
@@ -105,7 +105,7 @@ exports.getSongsByAlbum = function (req, res) {
 
     response.albums = {};
     response.albums[album] = global.songs.filter(function (song) {
-        return (song.artist.toLocaleLowerCase() === artist.toLocaleLowerCase() && song.album.toLocaleLowerCase() === album.toLocaleLowerCase());
+        return (song.artist && song.artist.toLocaleLowerCase() === artist.toLocaleLowerCase() && song.album.toLocaleLowerCase() === album.toLocaleLowerCase());
     });
 
     //console.log(re)

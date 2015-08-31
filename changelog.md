@@ -1,6 +1,13 @@
 ##latest
 
 
+##0.0.11 (Mon Aug 31 2015)
+* Added spanish language.
+* Added the login for displaying the current song.
+
+##0.0.7 (Sun Aug 30 2015)
+* Added i18n in the settings section.
+
 ##0.0.6 (Sat Aug 29 2015)
 * Added i18n in the client.
 * Added logo and brand colors.

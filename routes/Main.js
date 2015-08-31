@@ -5,6 +5,8 @@ var total;
 module.exports = {
     loadfiles: function (musicFolder) {
 
+        if(!musicFolder) return;
+
         global.songs = [];
 
         global.artists = [];
@@ -17,8 +19,8 @@ module.exports = {
                     var song = {
                         file: file,
                         title: file.substring(file.lastIndexOf('/')+1),
-                        artist: '(unknown)',
-                        album: '(unknown)',
+                        //artist: '(unknown)',
+                        //album: '(unknown)',
                         url: file.replace(musicFolder, ''), 
                         id: i};
                     i++;

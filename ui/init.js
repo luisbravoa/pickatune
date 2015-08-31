@@ -51,20 +51,6 @@ define(['jquery'], function ($) {
             });
 
 
-    function restart() {
-        var gui = require("nw.gui"),
-            child_process = require("child_process"),
-            win = gui.Window.get(),
-            child;
 
-        if (process.platform == "darwin") {
-            child = child_process.spawn("open", ["-n", "-a", process.execPath.match(/^([^\0]+?\.app)\//)[1]], {detached: true});
-        } else {
-            child = child_process.spawn(process.execPath, [], {detached: true});
-        }
-
-        child.unref();
-        win.hide();
-        gui.App.quit();
-    }
 });
+

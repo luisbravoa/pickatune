@@ -8,9 +8,12 @@
                 <p>{{content}}</p>
             </div>
             <div class="modal-footer">
-
-                <button type="button" class="btn btn-primary" id="modal-retry" data-i18n="Retry"></button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="Close"></button>
+                {{#if primary}}
+                    <button type="button" class="btn btn-primary" id="modal-primary">{{primary.label}}</button>
+                {{/if}}
+                {{#if secondary}}
+                    <button type="button" class="btn btn-default" id="modal-secondary">{{secondary.label}}</button>
+                {{/if}}
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

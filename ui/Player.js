@@ -148,7 +148,9 @@ define(['jquery', 'handlebars' ],function($, Handlebars) {
     Player.prototype.clear = function () {
         this.setArtist('');
         this.setTitle('');
-
+        this.playhead.style.width = "0%";
+        this.timesLeft.innerText = '';
+        this.timesRight.innerText = '';
         this.audio.src = '';
         this.$element.removeClass('playing');
     };

@@ -11,7 +11,6 @@ define([
     //console.log(i18n);
 
 
-
     return Backbone.Router.extend({
 
         routes: {
@@ -30,7 +29,7 @@ define([
 
         initialize: function (options) {
 
-            this.options = options;
+            this.options = options || {};
             this.baseUrl = (this.options && this.options.baseUrl) ? this.options.baseUrl : '';
 
 
@@ -38,54 +37,49 @@ define([
             $("body").i18n();
             this.initUI();
 
-
+            this.setDialog();
             $(document).ajaxError(function (event, request, settings) {
-
                 if (settings.url.indexOf(this.lastFM) === -1 && request.statusText !== 'abort') {
-                    this.showDialog({
-                        action: function () {
-                            if(options.retry){
-                                this.showLoader(true);
-                                options.retry(function(){
-                                    this.retry(settings);
-                                }.bind(this));
-                            }else{
-                                this.retry(settings);
-                            }
-                        }.bind(this)
-                    });
+                    this.ajaxSettings = settings;
+                    setTimeout(function () {
+                        this.modal.show();
+                    }.bind(this), 500)
                 }
             }.bind(this));
         },
-        showLoader: function(show){
-            if(show){
+        showLoader: function (show) {
+            if (show) {
                 $('#loader').modal({backdrop: 'static'});
-            }else{
+            } else {
                 $('#loader').hide();
             }
         },
 
         retry: function (settings) {
-            $.ajax(settings).fail(this.showDialog.bind(this));
             this.showLoader(false);
+            $.ajax(settings);
         },
 
-        showDialog: function (options) {
-            if (!this.modal) {
-                this.modal = new Modal({
-                    onAction: options.action,
-                    title: $.i18n.t('ModalTitle'),
-                    content: $.i18n.t('ModalContent')
-                });
-            } else {
-                setTimeout(function () {
-                    console.log('show')
-                    this.modal.show();
-                }.bind(this), 100);
-            }
-
-
+        setDialog: function () {
+            this.modal = new Modal({
+                primary: {
+                    label: $.i18n.t('networkError.action'),
+                    action: function () {
+                        if (this.options && this.options.retry) {
+                            this.showLoader(true);
+                            this.options.retry(function () {
+                                this.retry(this.ajaxSettings);
+                            }.bind(this));
+                        } else {
+                            this.retry(this.ajaxSettings);
+                        }
+                    }.bind(this)
+                },
+                title: $.i18n.t('networkError.title'),
+                content: $.i18n.t('networkError.content')
+            });
         },
+
         initUI: function () {
 
 

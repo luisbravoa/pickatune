@@ -9,12 +9,11 @@ exports.list = function (req, res) {
 
 exports.listPaginated = function (req, res) {
 
-    var index = parseInt(req.param("index"));
-    var length = parseInt(req.param("length"));
+    var index = parseInt(req.params.index);
+    var length = parseInt(req.params.length);
 
     console.log(index, index + length);
 
-    debugger;
     var response = {
         length: global.albums.length,
         data: global.albums.slice(index, index + length)

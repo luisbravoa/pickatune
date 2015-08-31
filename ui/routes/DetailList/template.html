@@ -1,26 +1,28 @@
-<h1>{{artist}}</h1> 
-{{#each albums}} 
-<h2>{{@key}}</h2> 
-<div class="TableLite"> 
-    <table style="width:calc(100% - 40px)"> 
-        <thead> 
-        <th style="min-width: 70px; max-width: 70px; width: 70px;"></th> 
-        <th style="min-width: 70px; max-width: 70px; width: 70px;">#</th> 
-        <th>Title</th> 
-        <th>Album</th> 
-        <th>Artist</th> 
+<h1>{{artist}}</h1>
+{{#each albums}}
+<h2>{{@key}}</h2>
+<div class="TableLite">
+    <table style="width:calc(100% - 40px)">
+        <thead>
+        <tr>
+            <th style="min-width: 70px; max-width: 70px; width: 70px;"></th>
+            <th style="min-width: 70px; max-width: 70px; width: 70px;">#</th>
+            <th>Title</th>
+            <th>Album</th>
+            <th>Artist</th>
+        </tr>
+        </thead>
+        {{#each this}}
+        <tr data-id="{{id}}">
+            <td style="min-width: 70px; max-width: 70px; width: 70px;">{{{play}}}</td>
+            <td style="min-width: 70px; max-width: 70px; width: 70px;">{{#if track}}{{track}}{{else}}(Unknown){{/if}}
+            </td>
+            <td>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</td>
+            <td>{{#if album}}{{album}}{{else}}(Unknown){{/if}}</td>
+            <td>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</td>
+        </tr>
+        {{/each}}
 
-        </thead> 
-        {{#each this}} 
-        <tr> 
-            <td style="min-width: 70px; max-width: 70px; width: 70px;">{{{play}}}</td> 
-            <td style="min-width: 70px; max-width: 70px; width: 70px;">{{#if track}}{{track}}{{else}}(Unknown){{/if}}</td> 
-            <td>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</td> 
-            <td>{{#if album}}{{album}}{{else}}(Unknown){{/if}}</td> 
-            <td>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</td> 
-            </tr> 
-        {{/each}} 
-
-        </table>
-    </div>
+    </table>
+</div>
 {{/each}}

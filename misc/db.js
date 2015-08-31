@@ -124,6 +124,7 @@ module.exports = {
                 return when.resolve((data[0])? data[0].value : undefined);
             });
     },
+
     setConfig: function (name, value) {
         this.db.transaction(function (tx) {
             tx.executeSql('INSERT OR REPLACE INTO appconfig (name, value) VALUES (?,?);', [name, value]);

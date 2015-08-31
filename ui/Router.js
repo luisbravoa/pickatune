@@ -6,8 +6,10 @@ define([
     './routes/ThumbnailList/ThumbnailList' ,
     './routes/SongQueue/SongQueue' ,
     './routes/Settings/Settings',
-    './routes/DetailList/DetailList'
-], function ($, Handlebars, Backbone, SongList, ThumbnailList, SongQueue, Settings, DetailList) {
+    './routes/DetailList/DetailList',
+    '../public/client/js/modal/Modal',
+    'i18next'
+], function ($, Handlebars, Backbone, SongList, ThumbnailList, SongQueue, Settings, DetailList, Modal) {
     var qrcode = document.querySelector('#qr');
     var $contentWrapper = $('#content-wrapper');
     var contentWrapper = document.querySelector('#content-wrapper');
@@ -40,6 +42,10 @@ define([
                     this.detailList.destroy();
                     delete this.detailList;
                 }
+                if (this.settingsRoute) {
+                    this.settingsRoute.destroy();
+                    delete this.settingsRoute;
+                }
                 $contentWrapper.empty();
             }.bind(this));
 
@@ -53,7 +59,6 @@ define([
             }.bind(this));
 
             global.eventBus.on('song:added', function (song) {
-                //console.log('router add');
 
                 if (this.songQueue) {
                     this.songQueue.addSong(song);
@@ -66,7 +71,31 @@ define([
             }.bind(this));
 
             $(window).resize(this.setSidePanelWidth.bind(this));
+
+            router = this;
+
         },
+
+
+        showDialog: function () {
+            if(!this.modal){
+                this.modal = new Modal({
+                    primary: {
+                        label: $.i18n.t('loadError.action'),
+                        action: function () {
+                            console.log('click');
+                        }.bind(this)
+                    },
+                    title: $.i18n.t('loadError.title'),
+                    content: $.i18n.t('loadError.content')
+                });
+            }
+
+            this.modal.show();
+
+            modal = this.modal;
+        },
+
         routes: {
             "songs": 'songs',
             "albums": 'albums',
@@ -182,6 +211,7 @@ define([
 
             this.showSidePanel();
             $('#side-panel-content').append(this.detailList.element);
+            global.setCurrent();
         },
 
         albums: function () {
@@ -260,7 +290,13 @@ define([
 
             if (this.songsList === undefined) {
                 this.songsList = new SongList({
-                    parentElement: document.querySelector('#page-wrapper')
+                    parentElement: document.querySelector('#page-wrapper'),
+                    strings: {
+                        album: $.i18n.t('Album'),
+                        artist: $.i18n.t('Artist'),
+                        title: $.i18n.t('Title'),
+                        unknown: $.i18n.t('Unknown')
+                    }
                 });
             }
             this.showContent(this.songsList.element);
@@ -287,7 +323,10 @@ define([
             if (this.songQueue === undefined) {
                 this.songQueue = new SongQueue({
                     queue: global.appPlayer.getSongQueue(),
-                    current: global.appPlayer.currentSong
+                    current: global.appPlayer.currentSong,
+                    strings: {
+                        unknown: $.i18n.t('Unknown')
+                    }
                 });
             }
 

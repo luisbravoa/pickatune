@@ -3,7 +3,6 @@ define(['jquery', 'handlebars', 'text!./template.html', '../Table/Table'], funct
         this.element = $.parseHTML('<div id="song-list"></div>')[0];
         this.options = options;
 
-
         this.table = new VirtualTable({
             columns: [
                 {
@@ -12,17 +11,17 @@ define(['jquery', 'handlebars', 'text!./template.html', '../Table/Table'], funct
                     style: 'min-width:50px; max-width: 50px; width: 50px;'
                 },
                 {
-                    name: 'Title',
+                    name: this.options.strings.title,
                     property: 'title',
                     style: 'min-width:200px; max-width: 200px; width: 200px;'
                 },
                 {
-                    name: 'Artist',
+                    name: this.options.strings.artist,
                     property: 'artist',
                     style: 'min-width:200px; max-width: 200px; width: 200px;'
                 },
                 {
-                    name: 'Album',
+                    name: this.options.strings.album,
                     property: 'album',
                     style: 'min-width:200px; max-width: 200px; width: 200px;'
                 }
@@ -45,7 +44,19 @@ define(['jquery', 'handlebars', 'text!./template.html', '../Table/Table'], funct
                             '<a href="#" class="addButton" data-id="' + song.file + '"><i class="fa fa-plus"></i></a>' +
                             '</div>';
 
+                        if(!song.artist){
+                            song.artist = '(' + this.options.strings.unknown + ')';
+                        }
+                        if(!song.album){
+                            song.album = '(' + this.options.strings.unknown + ')';
+                        }
+                        if(!song.title){
+                            song.title = '(' + this.options.strings.unknown + ')';
+                        }
+
                         response[index] = song;
+
+
                     }
                 }.bind(this));
 

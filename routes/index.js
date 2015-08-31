@@ -7,3 +7,13 @@ exports.qr = function (req, res) {
     res.type('svg');
     code.pipe(res);
 };
+
+exports.config = function (req, res) {
+
+     global.db.getConfig('language')
+        .then(function (language) {
+            res.send({
+                language: language
+            });
+        });
+};

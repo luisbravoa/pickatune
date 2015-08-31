@@ -82,6 +82,7 @@ define(['jquery', 'handlebars' ],function($, Handlebars) {
                     this.shownIndexes.push(key);
                     tr.removeClass('empty');
                     tr.addClass('filled');
+                    tr.attr('data-id', data[key].id);
                     tr.empty().append(this.rowHTML(data[key]));
                 }
             }

@@ -1,35 +1,35 @@
 <div id="song-list" class="song-queue">
-    <h2>Now Playing</h2>
+    <h2 data-i18n="NowPlaying">>Now Playing</h2>
     <table id="queue-song-current" style="width:100%">
         <thead>
         <tr>
-            <th>Title</th>
-            <th>Album</th>
-            <th>Artist</th>
+            <th data-i18n="Title"></th>
+            <th data-i18n="Album"></th>
+            <th data-i18n="Artist"></th>
         </thead>
         <tbody>
         {{#if current}}
         <tr data-id="{{current.id}}">
-            <td>{{#if current.title}}{{current.title}}{{else}}(Unknown){{/if}}</td>
-            <td>{{#if current.album}}{{current.album}}{{else}}(Unknown){{/if}}</td>
-            <td>{{#if current.artist}}{{current.artist}}{{else}}(Unknown){{/if}}</td>
+            <td>{{#if current.title}}{{current.title}}{{else}}(<span data-i18n="Unknown">Unknown</span>){{/if}}</td>
+            <td>{{#if current.album}}{{current.album}}{{else}}(<span data-i18n="Unknown">Unknown</span>){{/if}}</td>
+            <td>{{#if current.artist}}{{current.artist}}{{else}}(<span data-i18n="Unknown">Unknown</span>){{/if}}</td>
         </tr>
 
         {{/if}}
         </tbody>
     </table>
-    <h2>Next...</h2>
+    <h2 data-i18n="Next">Next</h2>
     <table id="queue-song-list" style="width:100%">
         <tr>
-            <th>Title</th>
-            <th>Album</th>
-            <th>Artist</th>
+            <th data-i18n="Title"></th>
+            <th data-i18n="Album"></th>
+            <th data-i18n="Artist"></th>
         </tr>
         {{#each queue}}
         <tr data-id="{{id}}">
-            <td>{{#if title}}{{title}}{{else}}(Unknown){{/if}}</td>
-            <td>{{#if album}}{{album}}{{else}}(Unknown){{/if}}</td>
-            <td>{{#if artist}}{{artist}}{{else}}(Unknown){{/if}}</td>
+            <td>{{#if title}}{{title}}{{else}}(<span data-i18n="Unknown">Unknown</span>){{/if}}</td>
+            <td>{{#if album}}{{album}}{{else}}(<span data-i18n="Unknown">Unknown</span>){{/if}}</td>
+            <td>{{#if artist}}{{artist}}{{else}}(<span data-i18n="Unknown">Unknown</span>){{/if}}</td>
         </tr>
         {{/each}}
     </table>

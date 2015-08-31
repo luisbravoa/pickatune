@@ -5,27 +5,33 @@ define(['jquery','text!./modal.html',  'handlebars', 'bootstrap'], function($, h
 
         this.template = Handlebars.compile(html);
         $(document.body).append(this.template(options));
-        //debugger;
-        $('#modal').i18n();
+        //$('#modal').i18n();
         this.$element = $('#modal');
-        this.$element.modal({backdrop: 'static'});
+        this.modal = $('#modal').modal({
+            backdrop: 'static',
+            show: false
+        });
 
-        this.$element.find('#modal-retry').click(function(){
-            this.close();
-            if(options.onAction){
-                options.onAction();
-            }
+        if(options.primary){
+            this.$element.find('#modal-primary').click(function(){
+                this.close();
+                if(options.primary.action){
+                    options.primary.action();
+                }
+            }.bind(this));
+        }
 
-        }.bind(this));
 
     }
 
     Modal.prototype.close = function(){
-        this.$element.modal('hide');
+        //debugger;
+        this.modal.modal('hide');
     };
 
     Modal.prototype.show = function(){
-        this.$element.modal('show');
+        //debugger;
+        this.modal.modal('show');
     };
 
     return Modal;
