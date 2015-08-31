@@ -127,20 +127,17 @@ define(['jquery', 'handlebars' ],function($, Handlebars) {
     };
 
     Player.prototype.play = function () {
-        console.log('play');
         this.audio.play();
         this.$element.addClass('playing');
     };
 
     Player.prototype.stop = function () {
-        console.log('stop');
         this.audio.pause();
         this.audio.currentTime = 0;
         this.$element.removeClass('playing');
     };
 
     Player.prototype.pause = function () {
-        console.log('pause');
         this.audio.pause();
         this.$element.removeClass('playing');
     };

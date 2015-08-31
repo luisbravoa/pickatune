@@ -31,11 +31,7 @@ var routes = {
 global.songs = [];
 global.db = require('./misc/db.js');
 
-try {
-    global.db.init(openDatabase);
-} catch (e) {
-    console.log(e)
-}
+global.db.init(openDatabase);
 
 function reload() {
 
@@ -52,7 +48,6 @@ function reload() {
             })
             .catch(function (e) {
                 //setTimeout(function () {
-                console.log(e);
                 throw e;
                     global.eventBus.emit('reload:error');
                 //}, 1000);
@@ -124,7 +119,6 @@ http.get(options, function (res) {
 
 
     http.createServer(app).listen(app.get('port'), function (err) {
-        console.log('server created');
         setTimeout(function () {
             global.eventBus.emit('server:ready');
         }, 1000);

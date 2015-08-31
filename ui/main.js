@@ -31,7 +31,6 @@ define(['jquery','./AppPlayer', './Router', 'i18next', 'bootstrap'], function($,
                     if(!languageConfig){
                         global.db.setConfig('language', $.i18n.lng());
                     }
-                    console.log('bomba')
                     Backbone.history.start();
                     $('body').i18n();
                     document.querySelector('#player-wrapper').appendChild(global.appPlayer.player.element);

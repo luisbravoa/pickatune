@@ -1,4 +1,4 @@
-define(['jquery', 'handlebars', 'text!./songList.html'], function($, Handlebars, html) {
+define(['jquery', 'handlebars', 'text!./songList.html'], function ($, Handlebars, html) {
     function SongList(options) {
         this.options = options;
         this.rowHeight = 46;
@@ -17,7 +17,6 @@ define(['jquery', 'handlebars', 'text!./songList.html'], function($, Handlebars,
 
         this.$contentElement = $(this.element).find('.SongList-content');
         this.$contentElement.append(rows);
-        console.log(this.$contentElement)
 
         $(this.options.scrollableElement).scroll(function (e) {
             if (this.timeout) {

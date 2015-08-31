@@ -10,14 +10,12 @@ define(['jquery', 'handlebars', 'text!./template.html'], function ($, Handlebars
 
         global.db.getConfig('language')
             .then(function (language) {
-                console.log(language);
                 if (language !== undefined) {
                     this.$element.find("#language").val(language);
                 }
             }.bind(this));
         global.db.getConfig('musicFolder')
             .then(function (musicFolder) {
-                console.log(musicFolder);
 
                 if (musicFolder !== undefined) {
                     this.$element.find("#currentMusicFolder").html(musicFolder);

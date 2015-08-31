@@ -1,9 +1,8 @@
 ##latest
-
+* Added the login for displaying the current song.
 
 ##0.0.11 (Mon Aug 31 2015)
 * Added spanish language.
-* Added the login for displaying the current song.
 
 ##0.0.7 (Sun Aug 30 2015)
 * Added i18n in the settings section.

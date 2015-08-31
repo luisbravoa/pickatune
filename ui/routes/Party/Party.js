@@ -2,7 +2,6 @@ define(['jquery', 'handlebars', 'text!./template.html'], function ($, Handlebars
     function Party(options) {
         this.options = options;
         var template = Handlebars.compile(this.html);
-        console.log(options);
 
         this.element = parse(template(options));
         //this.options.parentElement.appendChild(this.element);

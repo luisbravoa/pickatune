@@ -312,7 +312,6 @@ define([
             $('.page-wrapper').off("swiperight", this.swipeHandler);
         },
         showSongs: function (data) {
-            console.log('showsongs')
             if (!this.songsList) {
                 this.songContainer = $.parseHTML('<div id="songs"></div>')[0];
                 $.ajax({
@@ -340,8 +339,6 @@ define([
 
         },
         getData: function (indexes, cb) {
-            console.log('getData', indexes);
-
             if (this._songXHR) {
                 this._songXHR.abort();
                 delete this._songXHR;

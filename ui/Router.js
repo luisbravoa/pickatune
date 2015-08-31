@@ -50,8 +50,6 @@ define([
             }.bind(this));
 
             global.eventBus.on('player:change', function () {
-                console.log('player:change', global.appPlayer, global.appPlayer.currentSong);
-
                 if (this.songQueue) {
                     this.songQueue.setCurrent(global.appPlayer.currentSong);
 
@@ -83,7 +81,7 @@ define([
                     primary: {
                         label: $.i18n.t('loadError.action'),
                         action: function () {
-                            console.log('click');
+
                         }.bind(this)
                     },
                     title: $.i18n.t('loadError.title'),
