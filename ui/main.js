@@ -1,11 +1,19 @@
 define(['jquery','./AppPlayer', './Router', 'i18next', 'bootstrap'], function($, AppPlayer, AppRouter){
 
-
+    $('#url').text(global.url);
+    $('#qr').attr('src', global.url + '/qr');
+    $('#splash').fadeOut(1000,function () {
+        $('#splash').remove();
+    });
+    $('#loader').modal({
+        backdrop: 'static'
+    });
     global.setCurrent = function () {
         $('.current').removeClass('current');
         $('[data-id=' + global.currentSongId + ']').addClass('current');
-    }
+    };
     global.router = new AppRouter();
+
     global.router.loader(true);
     global.appPlayer = new AppPlayer({
         onChange: function (song) {
@@ -58,10 +66,7 @@ define(['jquery','./AppPlayer', './Router', 'i18next', 'bootstrap'], function($,
 
     });
 
-    global.eventBus.on('server:ready', function () {
-        $('#url').text(global.url);
-        $('#qr').attr('src', global.url + '/qr');
-    });
+
 
     global.eventBus.on('load:songs', function (number, total) {
         global.router.setLoaderText(sprintf($.i18n.t('LoadingSongs'), number, total));

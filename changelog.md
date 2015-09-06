@@ -1,4 +1,7 @@
 ##latest
+* Added splash screen
+
+##0.0.13 (Mon Aug 31 2015)
 * Added the login for displaying the current song.
 
 ##0.0.11 (Mon Aug 31 2015)

@@ -44,27 +44,27 @@ module.exports = function (grunt) {
                 files: [
                     {
                     src: 'lib/ffmpegsumo/win32/ffmpegsumo.dll',
-                    dest: 'build/prototype/win32/ffmpegsumo.dll'
+                    dest: 'build/pickatune/win32/ffmpegsumo.dll'
                     },
                     {
                     src: 'lib/ffmpegsumo/win64/ffmpegsumo.dll',
-                    dest: 'build/prototype/win64/ffmpegsumo.dll'
+                    dest: 'build/pickatune/win64/ffmpegsumo.dll'
                     },
                     {
                     src: 'lib/ffmpegsumo/osx32/ffmpegsumo.so',
-                    dest: 'build/prototype/osx32/prototype.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
+                    dest: 'build/pickatune/osx32/pickatune.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
                     },
                     {
                     src: 'lib/ffmpegsumo/osx64/ffmpegsumo.so',
-                    dest: 'build/prototype/osx64/prototype.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
+                    dest: 'build/pickatune/osx64/pickatune.app/Contents/Frameworks/nwjs Framework.framework/Libraries/ffmpegsumo.so'
                     },
                     {
                     src: 'lib/ffmpegsumo/linux64/libffmpegsumo.so',
-                    dest: 'build/prototype/linux64/libffmpegsumo.so'
+                    dest: 'build/pickatune/linux64/libffmpegsumo.so'
                     },
                     {
                     src: 'lib/ffmpegsumo/linux32/libffmpegsumo.so',
-                    dest: 'build/prototype/linux32/libffmpegsumo.so'
+                    dest: 'build/pickatune/linux32/libffmpegsumo.so'
                     }
                 ]
             }
@@ -155,7 +155,7 @@ function getCompressConfig(platforms, version){
                 }
             },
             expand: true,
-            cwd: 'build/prototype/' + platform,
+            cwd: 'build/pickatune/' + platform,
             src: ['**/*']
         };
     });

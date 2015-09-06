@@ -1,5 +1,5 @@
 @import "colors.less";
-body {
+html, body {
   background-color: #000;
   font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
 }
@@ -34,7 +34,9 @@ body {
 .navbar-header {
   width: 225px;
 }
-
+#player-wrapper{
+ height: 340px;
+}
 #player-wrapper #player {
   margin-top: 10px;
   margin-left: auto;
@@ -42,6 +44,8 @@ body {
 }
 
 #qr-wrapper {
+  width: 200px;
+  height: 200px;
   margin-top: 20px;
   background-color: rgba(176, 181, 190, 0.4);
   width: 200px;
@@ -224,4 +228,8 @@ body.fullScreen nav {
 
 .song-queue {
   padding: 10px;
+}
+
+#splash{
+  background-color: black; position: absolute; top:0; bottom: 0; left: 0; right: 0; z-index: 2030;
 }

@@ -26,7 +26,7 @@
     <script>
         less = {
             env: "development",
-            logLevel: 0,
+            logLevel: 0
         }
     </script>
     <script src="public/client/js/lib/less.min.js" type="text/javascript"></script>
@@ -38,6 +38,7 @@
 </head>
 
 <body>
+<div id="splash"></div>
 <header>
     <div id="header-title">Pickatune</div>
     <div id="header-controls">
@@ -73,7 +74,7 @@
             <a href="#queue" data-i18n="Queue"></a>
         </li>
         <li>
-            <a href="#settings"><i class="fa fa-fw fa-cog"></i> <span data-i18n="Settings"></span></a>
+            <a href="#settings"><span data-i18n="Settings"></span></a>
         </li>
     </ul>
     <!-- /.navbar-collapse -->
@@ -110,7 +111,7 @@
 
 </content>
 <!-- /#wrapper -->
-<div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade in" id="loader" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div style="position: fixed; top:calc(50% - 50px); margin-left: auto; margin-right: auto; width: 300px;left: calc(50% - 150px); text-align:center;">
         <i class="fa fa-cog fa-spin fa-5x" style="top:50%; color: white;"></i>
 
@@ -121,6 +122,7 @@
 
 <script src="server.js"></script>
 <script data-main="app.js" src="public/client/js/lib/require.js"></script>
+
 
 </body>
 

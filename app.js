@@ -28,4 +28,19 @@ requirejs.config({
 
 });
 
-requirejs(['./ui/init', './ui/main']);
+//global.loader = function(){
+//    if (show) {
+//        $('#loader').modal({
+//            backdrop: 'static'
+//        });
+//    } else {
+//        $('#loader').modal('hide')
+//    }
+//};
+//
+//global.loader(true);
+
+global.eventBus.on('server:ready', function () {
+    requirejs(['./ui/init', './ui/main']);
+});
+

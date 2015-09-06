@@ -1,6 +1,6 @@
 {
-  "name": "prototype",
-  "version": "0.0.13",
+  "name": "pickatune",
+  "version": "0.0.14",
   "main": "index.html",
   "window": {
     "title": "Pickatune",
