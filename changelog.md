@@ -1,4 +1,7 @@
 ##latest
+* Startup fix
+
+##0.0.16 (Sun Sep 06 2015)
 * Added splash screen
 
 ##0.0.13 (Mon Aug 31 2015)
