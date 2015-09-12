@@ -1,8 +1,11 @@
 define(['jquery','./AppPlayer', './Router', 'i18next', 'bootstrap'], function($, AppPlayer, AppRouter){
 
-    $('#splash').fadeOut(1000,function () {
-        $('#splash').remove();
-    });
+    //setTimeout(start, 1000);
+    function start (){
+        $('#splash').fadeOut(300,function () {
+            $('#splash').remove();
+        });
+    }
     $('#loader').modal({
         backdrop: 'static'
     });
@@ -126,11 +129,13 @@ define(['jquery','./AppPlayer', './Router', 'i18next', 'bootstrap'], function($,
     }
 
     global.eventBus.on('reload:ready', function (musicFolder) {
+        start();
         gotoSongs();
         global.router.loader(false);
     });
 
     global.eventBus.on('reload:error', function (musicFolder) {
+        start();
         global.router.loader(false);
         global.router.showDialog();
     });

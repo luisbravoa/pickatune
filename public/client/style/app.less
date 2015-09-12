@@ -1,4 +1,5 @@
 @import "colors.less";
+
 html, body {
   background-color: #000;
   font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
@@ -91,7 +92,7 @@ header {
 #header-title {
   color: white;
   display: inline-block;
-  width: calc(100% - 150px);
+  width: calc(~'100% - 150px');
   vertical-align: middle;
   padding-left: 10px;
   line-height: 30px;
@@ -231,5 +232,16 @@ body.fullScreen nav {
 }
 
 #splash{
-  background-color: black; position: absolute; top:0; bottom: 0; left: 0; right: 0; z-index: 2030;
+  background-color: @primaryDark;
+  position: absolute;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2030;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }

@@ -1,4 +1,7 @@
 ##latest
+* Added logo to splash screen.
+
+##0.0.17 (Sun Sep 06 2015)
 * Startup fix
 
 ##0.0.16 (Sun Sep 06 2015)

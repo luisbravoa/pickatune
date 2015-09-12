@@ -48,7 +48,7 @@ function reload() {
             })
             .catch(function (e) {
                 //setTimeout(function () {
-                throw e;
+                //throw e;
                     global.eventBus.emit('reload:error');
                 //}, 1000);
 
