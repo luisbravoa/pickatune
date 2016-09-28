@@ -14,8 +14,8 @@ new Discover();
 
 global.models = require(path.join(process.cwd(), 'models', 'index.js')).models;
 
-global.ip = require('ip').address();
-global.url = 'http://' + global.ip + ':2323';
+
+setIP(require('ip').address());
 global.utils = require(path.join(process.cwd(), 'misc', 'utils.js'));
 
 global.baseDir = process.cwd();
@@ -35,7 +35,7 @@ global.db.init(openDatabase);
 
 function reload() {
 
-    try{
+    try {
         global.db.getConfig('musicFolder')
             .then(function (musicFolder) {
 
@@ -49,17 +49,42 @@ function reload() {
             .catch(function (e) {
                 //setTimeout(function () {
                 //throw e;
-                    global.eventBus.emit('reload:error');
+                global.eventBus.emit('reload:error');
                 //}, 1000);
 
             });
-    }catch(e){
+    } catch (e) {
         global.eventBus.emit('reload:error');
     }
 
 
 }
 
+
+var net = require('net');
+function getNetworkIP(callback) {
+    var socket = net.createConnection(80, 'www.google.com');
+    socket.on('connect', function () {
+        callback(undefined, socket.address().address);
+        socket.end();
+    });
+    socket.on('error', function (e) {
+        callback(e, 'error');
+    });
+}
+// Usage case:
+
+getNetworkIP(function (error, ip) {
+    if (!error) {
+        setIP(ip);
+    }
+    reload();
+});
+
+function setIP(ip) {
+    global.ip = ip;
+    global.url = 'http://' + global.ip + ':2323';
+}
 
 setTimeout(reload, 500);
 
@@ -70,7 +95,6 @@ var options = {
     host: 'localhost',
     port: 2323
 };
-
 
 
 //check if server is already running
@@ -91,7 +115,6 @@ http.get(options, function (res) {
     });
 
 
-
     app.get('/qr', routes.Index.qr);
     app.get('/config', routes.Index.config);
     app.get('/songs/length', routes.Songs.length);
@@ -109,7 +132,6 @@ http.get(options, function (res) {
     app.get('/artists/:name/songs', routes.Songs.getSongsByArtist);
 
     app.get('/artists/:index/:length', routes.Artists.listPaginated);
-
 
 
     // Albums

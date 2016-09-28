@@ -1,4 +1,5 @@
 ##latest
+* Fixed issue with wrong ip taken.
 * Added logo to splash screen.
 
 ##0.0.17 (Sun Sep 06 2015)
