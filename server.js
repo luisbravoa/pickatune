@@ -72,7 +72,6 @@ function getNetworkIP(callback) {
         callback(e, 'error');
     });
 }
-// Usage case:
 
 getNetworkIP(function (error, ip) {
     if (!error) {
