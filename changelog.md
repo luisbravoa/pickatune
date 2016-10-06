@@ -1,4 +1,7 @@
 ##latest
+* Added Momentum Scrolling on iOS.
+
+##0.0.23 (Thu Oct 06 2016)
 * Side panel fix on mobile client.
 
 ##0.0.21 (Wed Sep 28 2016)
