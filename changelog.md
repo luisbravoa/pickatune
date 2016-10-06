@@ -1,5 +1,5 @@
 ##latest
-
+* Side panel fix on mobile client.
 
 ##0.0.21 (Wed Sep 28 2016)
 * Fixed issue with wrong ip taken.
